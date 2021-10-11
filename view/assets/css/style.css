@@ -70,6 +70,9 @@ a#forgot-password\ {
     overflow: hidden !important;
 }
 
+.svg-div {
+    box-shadow: -1px 18px 18px rgb(110, 197, 255);
+}
 
 /* Footer Login */
 

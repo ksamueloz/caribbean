@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="view/assets/css/bootstrap.min.css">
     <!-- Style Css -->
     <link rel="stylesheet" href="view/assets/css/style.css">
-    <title>Iniciar sesión</title>
+    <title>Caribbean Tour</title>
 </head>
 <body>
     <!-- Barra de navegación -->

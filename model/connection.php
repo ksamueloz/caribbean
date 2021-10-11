@@ -7,8 +7,8 @@
         private $database = "caribbean";
 
         public function __construct() {
-            $this -> server = "localhost";
-            $this -> user = "root";
+            $this -> server   = "localhost";
+            $this -> user     = "root";
             $this -> password = "";
             $this -> database = "caribbean";
         }
