@@ -7,8 +7,7 @@ $(document).ready(function() {
                 data: $(this).serialize(),
                 dataType: "json",
                 success: function(response) {
-                    // let jsonData = JSON.stringify(response);
-                    // console.log(response.success);
+
                     if (response.status == 0) {
                         emptyFieldsOrKnows("Revisa que ningún campo esté vacío.");
                     }
@@ -36,15 +35,17 @@ $(document).ready(function() {
             dataType: "json",
             success: function(response) {
                 if (response.status == 0) {
-                    emptyFieldsOrKnows("Revisa que ningún campo esté vacío.");
+                    window.location.href = "http://localhost/caribbean/view/modules/administrator.php";
                 } else if (response.status == 1) {
                     emptyFieldsOrKnows("Tu solicitud de registro está pendiente por aprobarse.");
                 } else if (response.status == 2) {
-                    emptyFieldsOrKnows("Tu solicitud de registro está rechazada.");
+                    window.location.href = "http://localhost/caribbean/view/modules/seller.php";
                 } else if (response.status == 3) {
-                    emptyFieldsOrKnows("Credenciales incorrectas.");
+                    emptyFieldsOrKnows("Tu solicitud de registro está rechazada.");
                 } else if (response.status == 4) {
-                    window.location.href = "http://localhost/caribbean/view/modules/welcome.php";
+                    emptyFieldsOrKnows("Credenciales incorrectas.");
+                } else if (response.status == 5) {
+                    emptyFieldsOrKnows("Revise que ningún campo esté vacío.");
                 }
             }
         });
@@ -60,15 +61,12 @@ $(document).ready(function() {
 
     function successfulRegistration() {
         Swal.fire({
-                icon: 'success',
-                title: 'Enhorabuena...',
-                text: 'Te has registrado exitosamente.',
-                footer: `<a href="http://localhost/caribbean/view/modules/login.php">
+            icon: 'success',
+            title: 'Enhorabuena...',
+            text: 'Te has registrado exitosamente.',
+            footer: `<a href="http://localhost/caribbean/view/modules/login.php">
                             Inicia sesión
-                        </a>`
-            },
-            function() {
-                window.location.href = 'http://localhost/caribbean/view/modules/login.php';
-            });
+                    </a>`
+        });
     }
 });

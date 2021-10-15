@@ -34,7 +34,7 @@
             <div class="collapse navbar-collapse md-6" id="navbarContent">
                 <span class="navbar-text ms-5 container-fluid justify-content-center align-items-center text-center space-between">
                     <?php
-                        if(!isset($_SESSION["user_email"])):
+                        if(!isset($_SESSION["session"])):
                     ?>
                         <div class="md-3" class="links-li-su">
                             <a href="view/modules/login.php">

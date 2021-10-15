@@ -5,8 +5,8 @@
     require_once "../../model/signupAsSeller.model.php";
     require_once "../../controller/signupAsSeller.controller.php";
 
-    if(isset($_SESSION["user_email"])) {
-        header("Location: /caribbean/view/modules/welcome.php");
+    if(isset($_SESSION["session"])) {
+        header("Location: /caribbean");
     }
 ?>
 <!DOCTYPE html>
