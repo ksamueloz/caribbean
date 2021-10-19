@@ -116,7 +116,7 @@
                                 <input class="form-control" name="password" type="password" id="password" placeholder="Ingrese su contraseña">
                             </div>
                             <div class="mb-3 justify-content-center align-items-center text-center">
-                                <button type="submit" class="form-control btn btn-primary" id="singup-btn">
+                                <button type="submit" class="form-control btn btn-primary" name="singup-btn" id="singup-btn">
                                     Registrar
                                 </button>
                             </div>

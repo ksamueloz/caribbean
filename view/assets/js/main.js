@@ -1,29 +1,7 @@
 $(document).ready(function() {
     $("#signup-form").submit(function(e) {
         e.preventDefault();
-        $.ajax({
-                type: "POST",
-                url: "http://localhost/caribbean/view/modules/signupAsSeller.php",
-                data: $(this).serialize(),
-                dataType: "json",
-                success: function(response) {
-
-                    if (response.status == 0) {
-                        emptyFieldsOrKnows("Revisa que ningún campo esté vacío.");
-                    }
-                    if (response.status == 1) {
-                        emptyFieldsOrKnows("Este usuario existe en nuestra base de datos.");
-                    }
-                    if (response.status == 2) {
-                        successfulRegistration();
-                    }
-                }
-            })
-            .fail(function(jqXHR, textStatus, errorThrown) {
-                if (console && console.log) {
-                    console.log("La solicitud a fallado: " + textStatus + ": " + errorThrown);
-                }
-            });
+        ajaxCall("POST", "http://localhost/caribbean/view/modules/signupAsSeller.php", $(this).serialize(), "json")
     });
 
     $("#login-form").submit(function(e) {
@@ -51,6 +29,22 @@ $(document).ready(function() {
         });
     });
 
+    // Registro de vendedor por parte de un administrador
+    $("#signup-form-1").submit(function(e) {
+        e.preventDefault();
+        ajaxCall("POST", "http://localhost/caribbean/view/modules/administrator.php", $(this).serialize(), "json")
+    });
+
+    $("#signup-form-2").submit(function(e) {
+        e.preventDefault();
+        ajaxCall("POST", "http://localhost/caribbean/view/modules/administrator.php", $(this).serialize(), "json")
+    });
+
+    $(".btn-delete").on('click', function() {
+        // $('.tab-pane a[href="#tab-2"]').tab('show')
+        window.history.pushState({}, document.title, "/" + "caribbean/view/modules/administrator.php");
+    });
+
     function emptyFieldsOrKnows(message) {
         Swal.fire({
             icon: 'error',
@@ -69,4 +63,43 @@ $(document).ready(function() {
                     </a>`
         });
     }
+
+    function newRegisteredUser() {
+        Swal.fire({
+            icon: 'success',
+            title: 'Enhorabuena...',
+            text: 'Has agregado un nuevo usuario.'
+        });
+    }
+
+    function ajaxCall(type, url, data, dataType) {
+        $.ajax({
+                type: type,
+                url: url,
+                data: data,
+                dataType: dataType,
+                success: function(response) {
+
+                    if (response.status == 0) {
+                        emptyFieldsOrKnows("Revisa que ningún campo esté vacío.");
+                    } else if (response.status == 1) {
+                        emptyFieldsOrKnows("Este usuario existe en nuestra base de datos.");
+                    } else if (response.status == 2) {
+                        successfulRegistration();
+                    } else if (response.status == 3) {
+                        newRegisteredUser();
+                    }
+                }
+            })
+            .fail(function(jqXHR, textStatus, errorThrown) {
+                if (console && console.log) {
+                    console.log("La solicitud a fallado: " + textStatus + ": " + errorThrown);
+                }
+            });
+    }
+
+    // Validación del modal.
+    $('.modal').on('hidden.bs.modal', function() {
+        $(this).find('form').trigger('reset');
+    })
 });
