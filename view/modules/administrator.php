@@ -204,5 +204,7 @@
         </div>
     </div>  
 
-</body>
-</html>
+<?php
+  require_once "footer.php";
+?>
+<?php } else{ header("Location: /caribbean"); } ?>
