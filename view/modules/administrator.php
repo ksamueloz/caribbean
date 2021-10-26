@@ -10,7 +10,8 @@
         header("Location: /caribbean");
     } 
     else if(isset($_SESSION["session"]) && $_SESSION["role"] == "Administrador") {
-
+        
+        
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -19,12 +20,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>ADMIN</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
-  <!-- Favicons -->
-  <link href="assets/img/icon.png" rel="icon">
+    <title>Bienvenido administrador</title>
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,600,600i,700,700i|Satisfy|Comic+Neue:300,300i,400,400i,700,700i" rel="stylesheet">
@@ -33,200 +29,180 @@
   <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="../assets/css/style.css">
 
+    <!-- Style Css -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+    <!-- Data Tables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+
 </head>
-<body>  
-   <header><h1>AQUI VA EL HEADER</h1></header>
-    <section id="specials" class="specials">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3">
-            <ul class="nav nav-tabs flex-column">
-             <li class="nav-item">
-               <a class="nav-link active show" data-bs-toggle="tab" href="#tab-1">AGREGAR USUARIO</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#tab-2">LISTA DE USUARIOS</a>
-              </li>
-              <li class="nav-item">
-               <a class="nav-link" data-bs-toggle="tab" href="#tab-3">SITIOS TURISTICOS</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#tab-4">LISTA DE SITIOS TURISTICOS</a>
-              </li>
-           </ul>
-          </div>
-          <div class="col-lg-9 mt-4 mt-lg-0">
-            <div class="tab-content">
-              <div class="tab-pane active show" id="tab-1">
-                <div class="row">
-                 <div class="col-lg-4 details order-2 order-lg-1">
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                      REGISTRAR VENDEDOR
-                    </button>
-                    <!-- Modal -->
-                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">REGISTRO VENDEDOR</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-                            <form action="signupAsSeller.php" method="POST" id="signup-form">
-                              <div class="mb-3">
-                                  <label for="name" class="form-label float-left">Nombre</label>
-                                  <input class="form-control" name="name" type="text" id="name" placeholder="Ingrese su nombre">
-                              </div>
-                              <div class="mb-3">
-                                  <label for="last_name" class="form-label float-left">Apellido</label>
-                                  <input class="form-control" name="last_name" type="text" id="last_name" placeholder="Ingrese su apellido">
-                              </div>
-                              <div class="mb-3">
-                                  <label for="identity" class="form-label float-left">N. Identidad</label>
-                                  <input class="form-control" name="identity" type="number" id="identity" placeholder="Ingrese su numero de cedula">
-                              </div>
-                              <div class="mb-3">
-                                  <label for="city" class="form-label float-left" >Elija la ciudad en la que labora</label>
-                                  <select name="city" id="city" class="form-control">
-                                      <option value="Santa Marta">Santa Marta</option>
-                                      <option value="Cartagena">Cartagena</option>
-                                  </select>
-                              </div>
-                              <div class="mb-3">
-                                  <label for="email" class="form-label float-left">Correo</label>
-                                  <input class="form-control" name="email" type="email" id="email" placeholder="Ingrese su correo">
-                              </div>
-                              <div class="mb-3">
-                                  <label for="password" class="form-label float-label">Contraseña</label>
-                                  <input class="form-control" name="password" type="password" id="password" placeholder="Ingrese su contraseña">
-                              </div>
-                              <div class="mb-3 justify-content-center align-items-center text-center">
-                                  <button type="submit" class="btn btn-primary" id="singup-btn">
-                                      Registrar
-                                  </button>
-                              </div>
-                            </form>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div> 
-                  </div>
-                  <div class="col-lg-4 order-1 order-lg-2">
-                       <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
-                      REGISTRAR ADMINISTRADOR
-                    </button>
-                    <!-- Modal -->
-                    <div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">REGISTRO ADMINISTRADOR</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-                            <form action="signupAsSeller.php" method="POST" id="signup-form">
-                              <div class="mb-3">
-                                  <label for="name" class="form-label float-left">Nombre</label>
-                                  <input class="form-control" name="name" type="text" id="name" placeholder="Ingrese su nombre">
-                              </div>
-                              <div class="mb-3">
-                                  <label for="last_name" class="form-label float-left">Apellido</label>
-                                  <input class="form-control" name="last_name" type="text" id="last_name" placeholder="Ingrese su apellido">
-                              </div>
-                              <div class="mb-3">
-                                  <label for="identity" class="form-label float-left">N. Identidad</label>
-                                  <input class="form-control" name="identity" type="number" id="identity" placeholder="Ingrese su numero de cedula">
-                              </div>
-                              <div class="mb-3">
-                                  <label for="email" class="form-label float-left">Correo</label>
-                                  <input class="form-control" name="email" type="email" id="email" placeholder="Ingrese su correo">
-                              </div>
-                              <div class="mb-3">
-                                  <label for="password" class="form-label float-label">Contraseña</label>
-                                  <input class="form-control" name="password" type="password" id="password" placeholder="Ingrese su contraseña">
-                              </div>
-                              <div class="mb-3 justify-content-center align-items-center text-center">
-                                  <button type="submit" class="btn btn-primary" id="singup-btn">
-                                      Registrar
-                                  </button>
-                              </div>
-                            </form>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div> 
-                  </div>
-                </div>
-              </div>
-              <div class="tab-pane" id="tab-2">
-                <div class="row">
-                  <div class="col-lg-12 details order-2 order-lg-1">
-                    <div class="table-resposive">
-                      <table class="table table-bordered" id="datatable" width="100%" cellspacing="0">
-                        <thead>
-                          <tr>
-                            <th>ID</th>
-                            <th>Cedula</th>
-                            <th>Nombres</th>
-                            <th>Apellidos</th>
-                            <th>Correo</th>
-                            <th>Rol</th>
-                            <th></th>
-                          </tr>
-                        </thead>
-                        <tfoot>
-                          <tr>
-                            <th>ID</th>
-                            <th>Cedula</th>
-                            <th>Nombres</th>
-                            <th>Apellidos</th>
-                            <th>Correo</th>
-                            <th>Rol</th>
-                            <th></th>
-                          </tr>
-                        </tfoot>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="tab-pane" id="tab-3">
-                <div class="row">
-                  <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Formulario de sitio turistico</h3>
-                  </div>
-               </div>
-              </div>
-              <div class="tab-pane" id="tab-4">
-                <div class="row">
-                  <div class="col-lg-8 details order-2 order-lg-1">
-                    <h1>TABLA DE SITIOS TURISTICOS</h1>
-                  </div>
-                </div>
-              </div>
-           </div>
-         </div>
-       </div>
-     </div>
-   </section><!-- End Specials Section -->
- 
-     
-  <footer id="footer">
-    <h1>AQUI VA EL FOTER</h1>
-  </footer><!-- End Footer -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+<body>
+    <header>
+        <!-- Barra de navegación -->
+      <div class="container-fluid">
+            <nav class="navbar navbar-expand-md navbar-light border-3 border-bottom bg-light fixed-top" id="nav-login">
+                <div class="md-6 title">
+                    <a class="navbar-brand" href="/caribbean" data-bs-toggle="tooltip" data-placement="top" title="Logo de página web de turismo en la costa caribe">
+                        <p>
+                            Caribbean Tour
+                        </p>
+                    </a>
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse md-6" id="navbarContent">
+                    <span class="navbar-text ms-5 container-fluid justify-content-center align-items-center text-center space-between">
+                        <div class="md-3" class="links-li-su">   
+                            <a class="navbar-brand" href="#" data-bs-toggle="tooltip" data-placement="top" title="Nombre">
+                                <?php echo ($_SESSION["name"] ." ". $_SESSION["last_name"]); ?>
+                            </a>
+                        </div>
+                        <div class="md-3" class="links-li-su">   
+                            <a class="navbar-brand" href="../../controller/logout.controller.php" data-bs-toggle="tooltip" data-placement="top" title="Sesión">
+                                Cerrar sesión
+                            </a>
+                        </div>
+                    </span>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <div class="container" style="margin-top: 5%;">
+        <button type="button" id="newSeller" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#sellerModal">
+            Nuevo vendedor
+        </button>
+        <table id="table_seller"></table>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="sellerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="sellerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="sellerModalLabel">REGISTRO DE VENDEDOR</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body"> 
+                    <form method="POST" id="sellerForm">
+                        <div class="mb-3">
+                            <label class="form-label float-left">N. Identidad</label>
+                            <input class="form-control" id="identity" name="identity" type="number" placeholder="Ingrese su numero de cedula">
+                        </div>
+                        <div class="mb-3">
+                            <label  class="form-label float-left">Nombre</label>
+                            <input class="form-control" id="name" name="name" type="text" placeholder="Ingrese su nombre">
+                        </div>
+                        <div class="mb-3">
+                            <label  class="form-label float-left">Apellido</label>
+                            <input class="form-control" id="last_name" name="last_name" type="text" placeholder="Ingrese su apellido">
+                        </div>
+                        <div class="mb-3">
+                            <label  class="form-label float-left">Correo</label>
+                            <input class="form-control" id="email" name="email" type="email" placeholder="Ingrese su correo">
+                        </div>
+                        <div class="mb-3">
+                            <label  class="form-label float-label">Contraseña</label>
+                            <input class="form-control" id="password" name="password" type="password" placeholder="Ingrese su contraseña">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label float-left">Elija la ciudad en la que labora</label>
+                            <select id="city" name="city" class="form-control">
+                                <option value="Santa Marta">Santa Marta</option>
+                                <option value="Cartagena">Cartagena</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label  class="form-label float-left">Elija el estado</label>
+                            <select id="status" name="status" class="form-control">
+                                <option value="Pendiente">Pendiente</option>
+                                <option value="Aprobado">Aprobado</option>
+                                <option value="Rechazado">Rechazado</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="btnRegisterSeller">Registrar nuevo vendedor</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btnClose">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <!-- Vendor JS Files -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- Seller Modal -->
+    <div class="modal fade" id="updateSellerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="updateSellerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateSellerModalLabel">ACTUALIZACIÓN DE INFORMACIÓN</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body"> 
+                    <form method="POST" id="updateSellerForm">
+                        <div class="mb-3">
+                            <label class="form-label float-left">N. Identidad</label>
+                            <input class="form-control" id="updateIdentity" name="identity" type="number" placeholder="Ingrese su numero de cedula">
+                        </div>
+                        <div class="mb-3">
+                            <label  class="form-label float-left">Nombre</label>
+                            <input class="form-control" id="updateName" name="name" type="text" placeholder="Ingrese su nombre">
+                        </div>
+                        <div class="mb-3">
+                            <label  class="form-label float-left">Apellido</label>
+                            <input class="form-control" id="updateLast_name" name="last_name" type="text" placeholder="Ingrese su apellido">
+                        </div>
+                        <div class="mb-3">
+                            <label  class="form-label float-left">Correo</label>
+                            <input class="form-control" id="updateEmail" name="email" type="email" placeholder="Ingrese su correo">
+                        </div>
+                        <div class="mb-3">
+                            <label  class="form-label float-label">Contraseña</label>
+                            <input class="form-control" id="updatePassword" name="password" type="password" placeholder="Ingrese su contraseña">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label float-left">Elija la ciudad en la que labora</label>
+                            <select id="updateCity" name="city" class="form-control">
+                                <option value="Santa Marta">Santa Marta</option>
+                                <option value="Cartagena">Cartagena</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label  class="form-label float-left">Elija el estado</label>
+                            <select id="updateStatus" name="status" class="form-control">
+                                <option value="Pendiente">Pendiente</option>
+                                <option value="Aprobado">Aprobado</option>
+                                <option value="Rechazado">Rechazado</option>
+                            </select>
+                        </div>
+                        <input type="hidden" name="updateId" id="updateId">
+                        <input type="hidden" name="updateRole" id="updateRole">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="btnUpdateSeller">Actualizar información</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btnClose">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Eliminar informaci+on; -->
+    <!-- Seller Modal -->
+    <div class="modal fade" id="deleteSellerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteSellerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteSellerModalLabel">¿Está seguro de querer eliminar la información?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body"> 
+                    <button type="button" class="btn btn-primary" id="btnDeleteSeller">Elíminar información</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btnClose">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>  
 
 </body>
 </html>
