@@ -88,7 +88,7 @@
                     <form method="POST" id="siteForm">
                         <div class="mb-3">
                             <label class="form-label float-left">Elija el nombre de la ciudad</label>
-                            <select id="city" name="city" class="form-control">
+                            <select id="city2" name="city2" class="form-control">
                                 <option value="Santa Marta">Santa Marta</option>
                                 <option value="Cartagena">Cartagena</option>
                             </select>
@@ -101,7 +101,7 @@
                         </div>
                         <div class="mb-3">
                             <label  class="form-label float-left">Nombre del sitio</label>
-                            <input class="form-control" id="name" name="name" type="text" placeholder="Ingrese el nombre del sitio turístico">
+                            <input class="form-control" id="name2" name="name2" type="text" placeholder="Ingrese el nombre del sitio turístico">
                         </div>
                         <div class="mb-3">
                             <label class="form-label float-left">Descripción</label>
@@ -130,11 +130,11 @@
                     <form method="POST" id="siteForm">
                         <div class="mb-3">
                             <label class="form-label float-left">ID</label>
-                            <input class="form-control" id="updateId" name="updateId" type="text" disabled>
+                            <input class="form-control" id="updateId2" name="updateId2" type="text" disabled>
                         </div>
                         <div class="mb-3">
                             <label class="form-label float-left">Elija el nombre de la ciudad</label>
-                            <select id="updateCity" name="updateCity" class="form-control">
+                            <select id="updateCity2" name="updateCity2" class="form-control">
                                 <option value="Santa Marta">Santa Marta</option>
                                 <option value="Cartagena">Cartagena</option>
                             </select>
@@ -147,11 +147,11 @@
                         </div>
                         <div class="mb-3">
                             <label  class="form-label float-left">Nombre del sitio</label>
-                            <input class="form-control" id="updateName" name="updateName" type="text" placeholder="Ingrese el nombre del sitio turístico">
+                            <input class="form-control" id="updateName2" name="updateName2" type="text" placeholder="Ingrese el nombre del sitio turístico">
                         </div>
                         <div class="mb-3">
                             <label class="form-label float-left">Descripción</label>
-                            <textarea class="form-control rounded-0" name="updateDescription" id="updateDescription" rows="3" placeholder="Ingrese una descripción del sitio turístico"></textarea>
+                            <textarea class="form-control rounded-0" name="updateDescription2" id="updateDescription2" rows="3" placeholder="Ingrese una descripción del sitio turístico"></textarea>
                         </div>
                     </form>
                 </div>

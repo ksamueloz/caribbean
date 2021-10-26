@@ -117,6 +117,8 @@ switch($option) {
         if($results > 0) {
             echo "Información actualizada";
             exit();
+        } else {
+            echo "No se pudo actualizar";
         }
         break;
     case 5:

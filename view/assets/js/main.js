@@ -264,9 +264,9 @@ function deleteSeller() {
 
 function insertTouristSite() {
     $(document).on("click", "#btnRegisterSite", function() {
-        let city = $.trim($("#city").val());
+        let city = $.trim($("#city2").val());
         let country = $.trim($("#country").val());
-        let name = $.trim($("#name").val());
+        let name = $.trim($("#name2").val());
         let description = $.trim($("#description").val());
 
         if (city == "" || country == "" || name == "" || description == "") {
@@ -319,11 +319,11 @@ function getParticularTouristSite() {
             data: { id: id, option: 8 },
             dataType: "JSON",
             success: function(response) {
-                $("#updateId").val(response[0]);
-                $("#updateCity").val(response[2]);
+                $("#updateId2").val(response[0]);
+                $("#updateCity2").val(response[2]);
                 $("#updateCountry").val(response[1]);
-                $("#updateName").val(response[3]);
-                $("#updateDescription").val(response[4]);
+                $("#updateName2").val(response[3]);
+                $("#updateDescription2").val(response[4]);
 
                 $("#updateSiteModal").modal("show");
             }
@@ -334,11 +334,11 @@ function getParticularTouristSite() {
 function updateSite() {
 
     $(document).on("click", "#btnUpdateSite", function() {
-        let updateId = $("#updateId").val();
-        let updateCity = $("#updateCity").val();
+        let updateId = $("#updateId2").val();
+        let updateCity = $("#updateCity2").val();
         let updateCountry = $("#updateCountry").val();
-        let updateName = $("#updateName").val();
-        let updateDescription = $("#updateDescription").val();
+        let updateName = $("#updateName2").val();
+        let updateDescription = $("#updateDescription2").val();
 
         if (updateId == "" || updateCity == "" || updateCountry == "" || updateName == "" || updateDescription == "") {
             emptyFields("Campos vacíos");
