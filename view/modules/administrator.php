@@ -1,8 +1,9 @@
 <?php
     session_start();
     require_once "../../model/connection.php";
-    require_once "../../model/login.model.php";
-    require_once "../../controller/login.controller.php";
+    require_once "../../model/signupAsSeller.model.php";
+    require_once "../../model/administrator.model.php";
+    require_once "../../controller/administrator.controller.php";
 
     
     if(!isset($_SESSION["session"])){
