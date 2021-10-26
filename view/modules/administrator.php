@@ -59,6 +59,11 @@
                             </a>
                         </div>
                         <div class="md-3" class="links-li-su">   
+                            <a class="navbar-brand" href="manageTouristSites.php" data-bs-toggle="tooltip" data-placement="top" title="Sesión">
+                                Gestión de sitios
+                            </a>
+                        </div>
+                        <div class="md-3" class="links-li-su">   
                             <a class="navbar-brand" href="../../controller/logout.controller.php" data-bs-toggle="tooltip" data-placement="top" title="Sesión">
                                 Cerrar sesión
                             </a>
@@ -68,7 +73,7 @@
             </nav>
         </div>
     </header>
-    <div class="container" style="margin-top: 5%;">
+    <div class="container" style="margin-top: 10%;">
         <button type="button" id="newSeller" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#sellerModal">
             Nuevo vendedor
         </button>
@@ -204,7 +209,7 @@
     </div>  
 
     <!-- Footer -->
-    <div class="container container-fluid justify-content-center align-items-center text-center footer footer-admin">
+    <div class="container container-fluid justify-content-center align-items-center text-center footer footer-admin" style="margin-top: 12%;>
         <hr class="mb-4"/>
             <footer class="text-center text-lg-start">
                 <section>

@@ -29,13 +29,29 @@ $(document).ready(function() {
         });
     });
 
+    // CRUD DE USUARIOS
+
     insertSeller();
     viewSellers();
     getParticularSeller();
     updateSeller();
     deleteSeller();
 
+    // CRUD DE SITIOS TURISTICOS
+    insertTouristSite();
+    viewTouristSites();
+    getParticularTouristSite();
+    updateSite();
+    deleteSite();
+
+
     $('#table_seller').dataTable({
+        "columnDefs": [{
+            "targets": [0, 9],
+            "orderable": false,
+        }]
+    });
+    $('#table_tsite').dataTable({
         "columnDefs": [{
             "targets": [0, 9],
             "orderable": false,
@@ -244,4 +260,151 @@ function deleteSeller() {
             });
         });
     });
+}
+
+function insertTouristSite() {
+    $(document).on("click", "#btnRegisterSite", function() {
+        let city = $.trim($("#city").val());
+        let country = $.trim($("#country").val());
+        let name = $.trim($("#name").val());
+        let description = $.trim($("#description").val());
+
+        if (city == "" || country == "" || name == "" || description == "") {
+            emptyFields("Campos vacíos");
+        } else {
+            $.ajax({
+                url: "manageTouristSites.php",
+                method: "POST",
+                data: { city: city, country: country, name: name, description: description, option: 6 },
+                success: function(data) {
+                    data = $.parseJSON(data);
+                    if (data.status == 1) {
+                        newTouristSite();
+                        viewTouristSites()
+                        $("form").trigger("reset");
+                    } else if (data.status == 2) {
+                        alert("No se pudo registrar");
+                        $("form").trigger("reset");
+                    }
+                }
+            });
+        }
+    });
+
+    $(document).on("click", "#btnCloseSM", function() {
+        $("form").trigger("reset");
+    });
+}
+
+function viewTouristSites() {
+    $.ajax({
+        url: "manageTouristSites.php",
+        method: "POST",
+        data: { option: 7 },
+        success: function(response) {
+            response = $.parseJSON(response);
+            if (response.status == "success") {
+                $("#table_tsite").html(response.html);
+            }
+        }
+    });
+}
+
+function getParticularTouristSite() {
+    $(document).on("click", "#btnEdit", function() {
+        let id = $(this).attr("data-id");
+        $.ajax({
+            url: "manageTouristSites.php",
+            method: "POST",
+            data: { id: id, option: 8 },
+            dataType: "JSON",
+            success: function(response) {
+                $("#updateId").val(response[0]);
+                $("#updateCity").val(response[2]);
+                $("#updateCountry").val(response[1]);
+                $("#updateName").val(response[3]);
+                $("#updateDescription").val(response[4]);
+
+                $("#updateSiteModal").modal("show");
+            }
+        });
+    });
+}
+
+function updateSite() {
+
+    $(document).on("click", "#btnUpdateSite", function() {
+        let updateId = $("#updateId").val();
+        let updateCity = $("#updateCity").val();
+        let updateCountry = $("#updateCountry").val();
+        let updateName = $("#updateName").val();
+        let updateDescription = $("#updateDescription").val();
+
+        if (updateId == "" || updateCity == "" || updateCountry == "" || updateName == "" || updateDescription == "") {
+            emptyFields("Campos vacíos");
+            $("#updateSellerModal").modal("show");
+        } else {
+            $.ajax({
+                url: "manageTouristSites.php",
+                method: "POST",
+                data: { id: updateId, city: updateCity, country: updateCountry, name: updateName, description: updateDescription, option: 9 },
+                success: function(data) {
+
+                    data = $.parseJSON(data);
+                    if (data.status == 1) {
+                        viewTouristSites();
+                        $("#updateSiteModal").modal("hide");
+                        $("form").trigger("reset");
+                    } else if (data.status == 2) {
+                        alert("Algo grave pasó");
+                        $("form").trigger("reset");
+                    }
+                }
+            });
+        }
+    });
+}
+
+function deleteSite() {
+    $(document).on("click", "#btnDelete", function() {
+
+        let deleteId = $(this).attr("data-id2");
+
+        $("#deleteSiteModal").modal("show");
+
+        $(document).on("click", "#btnDeleteSite", function() {
+
+            $.ajax({
+                url: "manageTouristSites.php",
+                method: "POST",
+                data: { id: deleteId, option: 10 },
+                success: function(data) {
+                    viewTouristSites();
+                    // alert("Eliminado!");
+                    $("#deleteSiteModal").modal("hide");
+                },
+                error: function(e) {
+                    console.log(e);
+                }
+            });
+        });
+    });
+}
+
+// Mensajes emergentes
+
+function newTouristSite() {
+    Swal.fire({
+        icon: 'success',
+        title: 'Enhorabuena...',
+        text: 'Has agregado un nuevo sitio.'
+    });
+}
+
+function emptyFields(message) {
+    Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: message
+    })
 }
