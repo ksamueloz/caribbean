@@ -77,7 +77,22 @@
         <button type="button" id="newSeller" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#sellerModal">
             Nuevo vendedor
         </button>
-        <table id="table_seller"></table>
+        <table id="table_seller" class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Cédula</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Correo</th>
+                    <th scope="col">Rol</th>
+                    <th scope="col">Ciudad</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Editar</th>
+                    <th scope="col">Eliminar</th>      
+                </tr>
+            </thead>
+        </table>
     </div>
     <!-- Modal -->
     <div class="modal fade" id="sellerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="sellerModalLabel" aria-hidden="true">
@@ -162,7 +177,7 @@
                         </div>
                         <div class="mb-3">
                             <label  class="form-label float-label">Contraseña</label>
-                            <input class="form-control" id="updatePassword" name="password" type="password" placeholder="Ingrese su contraseña">
+                            <input class="form-control" id="updatePassword" name="password" type="password" placeholder="Ingrese su contraseña" disabled>
                         </div>
                         <div class="mb-3">
                             <label class="form-label float-left">Elija la ciudad en la que labora</label>
@@ -190,8 +205,25 @@
             </div>
         </div>
     </div>
-
-    <!-- Eliminar informaci+on; -->
+    
+    <!-- Actualizar información; -->
+    <!-- Seller Modal -->
+    <div class="modal fade" id="confirmSellerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmSellerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmSellerModalLabel">¿Está seguro de querer actualizar los datos?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body"> 
+                    <button type="button" class="btn btn-primary" id="btnConfirmSeller">Actualizar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btnClose">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>  
+    
+    <!-- Eliminar información; -->
     <!-- Seller Modal -->
     <div class="modal fade" id="deleteSellerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteSellerModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">

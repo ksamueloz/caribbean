@@ -1,8 +1,13 @@
 $(document).ready(function() {
+
+    // Para el registro de usuarios.
+
     $("#signup-form").submit(function(e) {
         e.preventDefault();
         ajaxCall("POST", "http://localhost/caribbean/view/modules/signupAsSeller.php", $(this).serialize(), "json")
     });
+
+    // Para el login de usuarios.
 
     $("#login-form").submit(function(e) {
         e.preventDefault();
@@ -29,52 +34,49 @@ $(document).ready(function() {
         });
     });
 
-    // CRUD DE USUARIOS
+    /* Llamado a funciones para el crud de usuarios y sitios turísticos por parte de un administrador.
+       
+       CRUD DE USUARIOS
+    */
 
     insertSeller();
-    viewSellers();
     getParticularSeller();
     updateSeller();
     deleteSeller();
 
-    // CRUD DE SITIOS TURISTICOS
+    /*
+       CRUD DE SITIOS TURISTICOS
+    */
     insertTouristSite();
     viewTouristSites();
     getParticularTouristSite();
     updateSite();
     deleteSite();
 
+    // Inicialización de la table vendedor, se muestran todos los datos asociados a los vendedores.
 
-    $('#table_seller').dataTable({
-        "columnDefs": [{
-            "targets": [0, 9],
-            "orderable": false,
-        }]
-    });
-    $('#table_tsite').dataTable({
-        "columnDefs": [{
-            "targets": [0, 9],
-            "orderable": false,
-        }]
-    });
+    let table_seller = $('#table_seller').DataTable({
+        "ajax": {
+            "url": "administrator.php",
+            "method": "post",
+            "data": { option: 2 },
+            "dataSrc": ""
+        },
+        "columns": [
+            { "data": "iduser" },
+            { "data": "identity" },
+            { "data": "name" },
+            { "data": "last_name" },
+            { "data": "email" },
+            { "data": "role" },
+            { "data": "city" },
+            { "data": "status" },
+            { "data": "edit" },
+            { "data": "delete" },
 
-
-    /*
-    // Registro de vendedor por parte de un administrador
-    $("#signup-form-1").submit(function(e) {
-        e.preventDefault();
-        ajaxCall("POST", "http://localhost/caribbean/view/modules/administrator.php", $(this).serialize(), "json")
-    });
-
-    $("#signup-form-2").submit(function(e) {
-        e.preventDefault();
-        ajaxCall("POST", "http://localhost/caribbean/view/modules/administrator.php", $(this).serialize(), "json")
+        ]
     });
 
-    $(".btn-delete").on('click', function() {
-        // $('.tab-pane a[href="#tab-2"]').tab('show')
-        window.history.pushState({}, document.title, "/" + "caribbean/view/modules/administrator.php");
-    });*/
 
     function emptyFieldsOrKnows(message) {
         Swal.fire({
@@ -92,14 +94,6 @@ $(document).ready(function() {
             footer: `<a href="http://localhost/caribbean/view/modules/login.php">
                             Inicia sesión
                     </a>`
-        });
-    }
-
-    function newRegisteredUser() {
-        Swal.fire({
-            icon: 'success',
-            title: 'Enhorabuena...',
-            text: 'Has agregado un nuevo usuario.'
         });
     }
 
@@ -135,6 +129,15 @@ $(document).ready(function() {
     })
 });
 
+
+/*
+
+    Funciones necesarias para el CRUD de Vendedores por parte de un Administrador.
+
+*/
+
+// Crea un nuevo usuario y lo almacena en la base de datos.
+
 function insertSeller() {
     $(document).on("click", "#btnRegisterSeller", function() {
         let identity = $.trim($("#identity").val());
@@ -146,17 +149,25 @@ function insertSeller() {
         let status = $.trim($("#status").val());
 
         if (identity == "" || name == "" || last_name == "" || email == "" || password == "" || city == "" || status == "") {
-            alert("Campos vacíos");
+            emptyFieldsOr("Revisa que ningún campo esté vacío.");
         } else {
             $.ajax({
                 url: "administrator.php",
                 method: "POST",
                 data: { identity: identity, name: name, last_name: last_name, email: email, password: password, city: city, status: status, option: 1 },
                 success: function(data) {
-                    alert(data);
-                    $("#sellerModal").modal("show");
-                    $("form").trigger("reset");
-                    viewSellers();
+                    data = $.parseJSON(data);
+
+                    if (data.status == 1) {
+                        goodNews("Enhorabuena...", "Has agregado un nuevo usuario.");
+                        $("#sellerModal").modal("show");
+                        $("form").trigger("reset");
+                        $('#table_seller').DataTable().ajax.reload();
+                    } else if (data.status == 2) {
+                        emptyFieldsOr("Algo malo pasó, no se pudo crear este usuario.");
+                    } else if (data.status == 3) {
+                        emptyFieldsOr("Esta persona está registrada, intenta con una nueva.");
+                    }
                 }
             });
         }
@@ -167,23 +178,13 @@ function insertSeller() {
     });
 }
 
-function viewSellers() {
-    $.ajax({
-        url: "administrator.php",
-        method: "POST",
-        data: { option: 2 },
-        success: function(response) {
-            response = $.parseJSON(response);
-            if (response.status == "success") {
-                $("#table_seller").html(response.html);
-            }
-        }
-    });
-}
+
+// Obtiene los datos de un vendedor en particular.
 
 function getParticularSeller() {
     $(document).on("click", "#btnEdit", function() {
         let id = $(this).attr("data-id");
+
         $.ajax({
             url: "administrator.php",
             method: "POST",
@@ -206,6 +207,9 @@ function getParticularSeller() {
     });
 }
 
+
+// Actualiza la información del vendedor escogido.
+
 function updateSeller() {
 
     $(document).on("click", "#btnUpdateSeller", function() {
@@ -220,17 +224,29 @@ function updateSeller() {
         let updateStatus = $("#updateStatus").val();
 
         if (updateIdentity == "" || updateName == "" || updateLast_name == "" || updateEmail == "" || updatePassword == "" || updateCity == "" || updateStatus == "") {
-            alert("Campos vacíos");
+            emptyFieldsOr("Revisa que ningún campo esté vacío.");
             $("#updateSellerModal").modal("show");
         } else {
-            $.ajax({
-                url: "administrator.php",
-                method: "POST",
-                data: { id: updateId, identity: updateIdentity, name: updateName, last_name: updateLast_name, email: updateEmail, password: updatePassword, role: updateRole, city: updateCity, status: updateStatus, option: 4 },
-                success: function(data) {
-                    $("#updateSellerModal").modal("hide");
-                    viewSellers();
-                }
+
+            $("#confirmSellerModal").modal("show");
+            $("#updateSellerModal").modal("show");
+            $(document).on("click", "#btnConfirmSeller", function() {
+                $.ajax({
+                    url: "administrator.php",
+                    method: "POST",
+                    data: { id: updateId, identity: updateIdentity, name: updateName, last_name: updateLast_name, email: updateEmail, password: updatePassword, role: updateRole, city: updateCity, status: updateStatus, option: 4 },
+                    success: function(data) {
+                        data = $.parseJSON(data);
+                        if (data.status == 4) {
+                            goodNews("Bien hecho", "Has actualizado la información sin problemas.");
+                            $("#updateSellerModal").modal("hide");
+                            $("#confirmSellerModal").modal("hide");
+                            $('#table_seller').DataTable().ajax.reload();
+                        } else if (data.status == 5) {
+                            emptyFieldsOr("No se pudo realizar la actualización.");
+                        }
+                    }
+                });
             });
         }
     });
@@ -250,9 +266,14 @@ function deleteSeller() {
                 method: "POST",
                 data: { id: deleteId, option: 5 },
                 success: function(data) {
-                    viewSellers();
-                    // alert("Eliminado!");
-                    $("#deleteSellerModal").modal("hide");
+                    data = $.parseJSON(data);
+                    if (data.status == 6) {
+                        goodNews("El usuario", "ha sido eliminado con exito.");
+                        $("#deleteSellerModal").modal("hide");
+                        $('#table_seller').DataTable().ajax.reload();
+                    } else if (data.status == 7) {
+                        emptyFieldsOr("No se pudo eliminar.");
+                    }
                 },
                 error: function(e) {
                     console.log(e);
@@ -401,10 +422,18 @@ function newTouristSite() {
     });
 }
 
-function emptyFields(message) {
+function emptyFieldsOr(message) {
     Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: message
     })
+}
+
+function goodNews(title, msg) {
+    Swal.fire({
+        icon: 'success',
+        title: title,
+        text: msg
+    });
 }
