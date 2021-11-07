@@ -3,8 +3,8 @@
 
     class crudAdministrator extends Connection {
 
-        public function registerNewSeller($name, $last_name, $identity, $status, $city, $email, $password) {
-            $sql = "INSERT INTO user (name, last_name, email, password, role) VALUES (:name, :last_name, :email, :password, 2);";
+        public function registerNewSeller($name, $last_name, $identity, $status, $city, $email, $password, $photo_name) {
+            $sql = "INSERT INTO user (name, last_name, email, password, picture, role) VALUES (:name, :last_name, :email, :password, :picture, 2);";
             $sql .= "INSERT INTO seller (user_iduser, identity, status, city) VALUES ((SELECT iduser FROM user where iduser = (select MAX(iduser) from user)), :identity, :status, :city);";
             $stament = $this -> connect() -> prepare($sql);
 
@@ -16,6 +16,7 @@
             $stament -> bindParam(":email", $email);
             $password = password_hash($password, PASSWORD_BCRYPT);
             $stament -> bindParam(":password", $password);
+            $stament -> bindParam(":picture", $photo_name);
             
             $stament -> execute();
             $results = $stament -> rowCount();
@@ -96,8 +97,7 @@
                 
             if($results > 0) {
                 return true;
-            } else {
-                return false;
-            }
+            } 
+            return false;
         }
     }

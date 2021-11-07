@@ -67,6 +67,7 @@ $(document).ready(function() {
             { "data": "identity" },
             { "data": "name" },
             { "data": "last_name" },
+            { "data": "photo" },
             { "data": "email" },
             { "data": "role" },
             { "data": "city" },
@@ -143,21 +144,35 @@ function insertSeller() {
         let identity = $.trim($("#identity").val());
         let name = $.trim($("#name").val());
         let last_name = $.trim($("#last_name").val());
+        let photo = $.trim($("#photo").val());
         let email = $.trim($("#email").val());
         let password = $.trim($("#password").val());
         let city = $.trim($("#city").val());
         let status = $.trim($("#status").val());
 
-        if (identity == "" || name == "" || last_name == "" || email == "" || password == "" || city == "" || status == "") {
+        if (identity == "" || name == "" || last_name == "" || !photo || email == "" || password == "" || city == "" || status == "") {
             emptyFieldsOr("Revisa que ningún campo esté vacío.");
         } else {
+            let formData = new FormData();
+            formData.append("photo", $("#photo")[0].files[0]);
+            formData.append("identity", identity);
+            formData.append("name", name);
+            formData.append("last_name", last_name);
+            formData.append("email", email);
+            formData.append("password", password);
+            formData.append("city", city);
+            formData.append("status", status);
+            formData.append("option", 1);
             $.ajax({
                 url: "administrator.php",
                 method: "POST",
-                data: { identity: identity, name: name, last_name: last_name, email: email, password: password, city: city, status: status, option: 1 },
+                data: formData,
+                contentType: false,
+                processData: false,
+                //data: { identity: identity, name: name, last_name: last_name, email: email, password: password, city: city, status: status, option: 1 },
                 success: function(data) {
                     data = $.parseJSON(data);
-
+                    //alert(data);
                     if (data.status == 1) {
                         goodNews("Enhorabuena...", "Has agregado un nuevo usuario.");
                         $("#sellerModal").modal("show");
@@ -167,6 +182,10 @@ function insertSeller() {
                         emptyFieldsOr("Algo malo pasó, no se pudo crear este usuario.");
                     } else if (data.status == 3) {
                         emptyFieldsOr("Esta persona está registrada, intenta con una nueva.");
+                    } else if (data.status == 4) {
+                        emptyFieldsOr("La foto tiene un tamaño muy grande.");
+                    } else if (data.success == 5) {
+                        emptyFieldsOr("Solo se permiten archivos con extensión jpeg, jpg y png");
                     }
                 }
             });
@@ -227,21 +246,27 @@ function updateSeller() {
             emptyFieldsOr("Revisa que ningún campo esté vacío.");
             $("#updateSellerModal").modal("show");
         } else {
-
+            $("#updateSellerModal").modal("hide");
             $("#confirmSellerModal").modal("show");
-            $("#updateSellerModal").modal("show");
+
             $(document).on("click", "#btnConfirmSeller", function() {
+
+                $("form").trigger("reset");
+                $("#updateSellerModal").modal("hide");
+                $("#confirmSellerModal").modal("hide");
                 $.ajax({
                     url: "administrator.php",
                     method: "POST",
                     data: { id: updateId, identity: updateIdentity, name: updateName, last_name: updateLast_name, email: updateEmail, password: updatePassword, role: updateRole, city: updateCity, status: updateStatus, option: 4 },
                     success: function(data) {
                         data = $.parseJSON(data);
+
                         if (data.status == 4) {
-                            goodNews("Bien hecho", "Has actualizado la información sin problemas.");
-                            $("#updateSellerModal").modal("hide");
-                            $("#confirmSellerModal").modal("hide");
+
                             $('#table_seller').DataTable().ajax.reload();
+
+                            goodNews("Bien hecho", "Has actualizado la información sin problemas.");
+
                         } else if (data.status == 5) {
                             emptyFieldsOr("No se pudo realizar la actualización.");
                         }
@@ -251,6 +276,9 @@ function updateSeller() {
         }
     });
 }
+
+// Borra al vendedor escogido.
+
 
 function deleteSeller() {
     $(document).on("click", "#btnDelete", function() {
@@ -273,6 +301,8 @@ function deleteSeller() {
                         $('#table_seller').DataTable().ajax.reload();
                     } else if (data.status == 7) {
                         emptyFieldsOr("No se pudo eliminar.");
+                    } else if (data.status == 8) {
+                        emptyFieldsOr("No existe una foto para eliminar");
                     }
                 },
                 error: function(e) {

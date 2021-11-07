@@ -84,6 +84,7 @@
                     <th scope="col">Cédula</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Apellido</th>
+                    <th scope="col">Foto</th>
                     <th scope="col">Correo</th>
                     <th scope="col">Rol</th>
                     <th scope="col">Ciudad</th>
@@ -103,22 +104,26 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body"> 
-                    <form method="POST" id="sellerForm">
+                    <form method="POST" id="sellerForm" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label class="form-label float-left">N. Identidad</label>
-                            <input class="form-control" id="identity" name="identity" type="number" placeholder="Ingrese su numero de cedula">
+                            <input class="form-control" id="identity" name="identity" type="number" placeholder="Ingrese el número de cédula">
                         </div>
                         <div class="mb-3">
                             <label  class="form-label float-left">Nombre</label>
-                            <input class="form-control" id="name" name="name" type="text" placeholder="Ingrese su nombre">
+                            <input class="form-control" id="name" name="name" type="text" placeholder="Ingrese el nombre">
                         </div>
                         <div class="mb-3">
                             <label  class="form-label float-left">Apellido</label>
-                            <input class="form-control" id="last_name" name="last_name" type="text" placeholder="Ingrese su apellido">
+                            <input class="form-control" id="last_name" name="last_name" type="text" placeholder="Ingrese el apellido">
+                        </div>
+                        <div class="mb-3">
+                            <label  class="form-label float-left">Foto</label>
+                            <input class="form-control" id="photo" name="photo" type="file" accept="image/*">
                         </div>
                         <div class="mb-3">
                             <label  class="form-label float-left">Correo</label>
-                            <input class="form-control" id="email" name="email" type="email" placeholder="Ingrese su correo">
+                            <input class="form-control" id="email" name="email" type="email" placeholder="Ingrese el correo">
                         </div>
                         <div class="mb-3">
                             <label  class="form-label float-label">Contraseña</label>
@@ -173,7 +178,7 @@
                         </div>
                         <div class="mb-3">
                             <label  class="form-label float-left">Correo</label>
-                            <input class="form-control" id="updateEmail" name="email" type="email" placeholder="Ingrese su correo">
+                            <input class="form-control" id="updateEmail" name="email" type="email" placeholder="Ingrese su correo" disabled>
                         </div>
                         <div class="mb-3">
                             <label  class="form-label float-label">Contraseña</label>
