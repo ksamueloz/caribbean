@@ -230,8 +230,10 @@ function getParticularSeller() {
 // Actualiza la información del vendedor escogido.
 
 function updateSeller() {
+    $('#updateSellerModal').submit(function(r) {
+        r.preventDefault();
+        r.stopImmediatePropagation();
 
-    $(document).on("click", "#btnUpdateSeller", function() {
         let updateId = $("#updateId").val();
         let updateIdentity = $("#updateIdentity").val();
         let updateName = $("#updateName").val();
@@ -246,32 +248,42 @@ function updateSeller() {
             emptyFieldsOr("Revisa que ningún campo esté vacío.");
             $("#updateSellerModal").modal("show");
         } else {
-            $("#updateSellerModal").modal("hide");
-            $("#confirmSellerModal").modal("show");
-
-            $(document).on("click", "#btnConfirmSeller", function() {
-
-                $("form").trigger("reset");
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
                 $("#updateSellerModal").modal("hide");
-                $("#confirmSellerModal").modal("hide");
-                $.ajax({
-                    url: "administrator.php",
-                    method: "POST",
-                    data: { id: updateId, identity: updateIdentity, name: updateName, last_name: updateLast_name, email: updateEmail, password: updatePassword, role: updateRole, city: updateCity, status: updateStatus, option: 4 },
-                    success: function(data) {
-                        data = $.parseJSON(data);
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "administrator.php",
+                        method: "POST",
+                        data: { id: updateId, identity: updateIdentity, name: updateName, last_name: updateLast_name, email: updateEmail, password: updatePassword, role: updateRole, city: updateCity, status: updateStatus, option: 4 },
+                        success: function(data) {
+                            data = $.parseJSON(data);
 
-                        if (data.status == 4) {
+                            if (data.status == 4) {
+                                console.log("Estado actualizado ");
+                                $('#table_seller').DataTable().ajax.reload();
+                                //$("#confirmSellerModal").modal("hide");
+                                goodNews("Bien hecho", "Has actualizado la información sin problemas.");
 
-                            $('#table_seller').DataTable().ajax.reload();
-
-                            goodNews("Bien hecho", "Has actualizado la información sin problemas.");
-
-                        } else if (data.status == 5) {
-                            emptyFieldsOr("No se pudo realizar la actualización.");
+                            } else if (data.status == 5) {
+                                console.log("No actualizado");
+                                emptyFieldsOr("No se pudo realizar la actualización.");
+                            }
                         }
-                    }
-                });
+                    });
+                    // Swal.fire(
+                    //     'Deleted!',
+                    //     'Your file has been deleted.',
+                    //     'success'
+                    // )
+                }
             });
         }
     });

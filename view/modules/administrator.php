@@ -201,12 +201,14 @@
                         </div>
                         <input type="hidden" name="updateId" id="updateId">
                         <input type="hidden" name="updateRole" id="updateRole">
+                        
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary" id="btnUpdateSeller" value="Actualizar información">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btnClose">Cancelar</button>
+                        </div>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" id="btnUpdateSeller">Actualizar información</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btnClose">Cancelar</button>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -221,7 +223,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body"> 
-                    <button type="button" class="btn btn-primary" id="btnConfirmSeller">Actualizar</button>
+                    <button type="submit" class="btn btn-primary" id="btnConfirmSeller">Actualizar</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btnClose">Cancelar</button>
                 </div>
             </div>
