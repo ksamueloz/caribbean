@@ -113,18 +113,14 @@ switch($option) {
         break;
     case 4:
         $update = new crudAdministrator();
-        /* if($update -> checkIfSellerExist($email)) {
-            echo json_encode(array("status" => 6));
+        
+        if($update -> updateSeller($id, $name, $last_name, $identity, $status, $city, $email)) {
+            echo json_encode(array("status" => 4));
             exit();
-        } else { */
-            if($update -> updateSeller($id, $name, $last_name, $identity, $status, $city, $email)) {
-                echo json_encode(array("status" => 4));
-                return exit();
-            } else {
-                echo json_encode(array("status" => 5));
-                return exit();
-            }
-        /* }*/
+        } else {
+            echo json_encode(array("status" => 5));
+            exit();
+        }
         break;
     case 5:
         $deleteSeller = new crudAdministrator();
