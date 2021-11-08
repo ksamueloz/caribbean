@@ -13,6 +13,7 @@ $email = (isset($_POST["email"])) ? $_POST["email"]: "";
 $password = (isset($_POST["password"])) ? $_POST["password"]: "";
 $status = (isset($_POST["status"])) ? $_POST["status"]: "";
 
+
 $option = (isset($_POST["option"])) ? $_POST["option"]: "";
 $id = (isset($_POST["id"])) ? $_POST["id"]: "";
 $role = (isset($_POST["role"])) ? $_POST["role"]: "";
@@ -20,64 +21,78 @@ $role = (isset($_POST["role"])) ? $_POST["role"]: "";
 switch($option) {
 
     case 1:
-        $newSeller = new crudAdministrator();
-        if($newSeller -> registerNewSeller($name, $last_name, $identity, $status, $city, $email, $password)) {
-            echo "Creado satisfactoriamente";
-            exit();
+        
+        $photo_name = $_FILES['photo']['name'];
+        $tmp_dir = $_FILES["photo"]["tmp_name"];
+        $photo_size = $_FILES["photo"]["size"];
+        
+        $random = rand(100, 1000);
+        $photo_dir = "../assets/seller-img/" . $random . $photo_name;
+        $photo_ext = strtolower(pathinfo($photo_name, PATHINFO_EXTENSION));
+        $extensions = array("jpeg", "jpg", "png");
+
+        if (in_array($photo_ext, $extensions)) {
+            if ($photo_size < 2000000) {
+                $status = True;
+            } else {
+                echo json_encode(array("status" => 4));
+                exit();
+            }
         } else {
-            echo "No fue creado";
+            echo json_encode(array("status" => 5));
             exit();
+        }
+    
+
+        if($status) {
+            $newSeller = new crudAdministrator();
+            if($newSeller -> checkIfSellerExist($email)) {
+                echo json_encode(array("status" => 3));
+                exit();
+            } else {
+                if($newSeller -> registerNewSeller($name, $last_name, $identity, $status, $city, $email, $password, $photo_dir)) {
+                    move_uploaded_file($tmp_dir, $photo_dir);
+                    echo json_encode(array("status" => 1));
+                    exit();
+                } else {
+                    echo json_encode(array("status" => 2));
+                    exit();
+                }
+            }
         }
         break;
 
     case 2:
-        $value = "";
-        $value .= '
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Cédula</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Apellido</th>
-                        <th scope="col">Correo</th>
-                        <th scope="col">Rol</th>
-                        <th scope="col">Ciudad</th>
-                        <th scope="col">Estado</th>
-                        <th scope="col">Editar</th>
-                        <th scope="col">Eliminar</th>      
-                    </tr>';
+
         $user =  new crudAdministrator();
         $user = $user -> getAllUsers();
+        $sellerData = array();
         while ($result = $user -> fetch(PDO::FETCH_ASSOC)) {
-            $value .= '<tr>
-                        <th scope="col">'.$result["iduser"].'</th>
-                        <th scope="col">'.$result["identity"].'</th>
-                        <th scope="col">'.$result["name"].'</th>
-                        <th scope="col">'.$result["last_name"].'</th>
-                        <th scope="col">'.$result["email"].'</th>
-                        <th scope="col">'.$result["role"].'</th>
-                        <th scope="col">'.$result["city"].'</th>
-                        <th scope="col">'.$result["status"].'</th>
-                        <th scope="col">
-                            <button class="btn btn-success" id="btnEdit" data-id='.$result["iduser"].'>Editar</button>
-                        </th>
-                        <th scope="col">
-                            <button class="btn btn-warning" id="btnDelete" data-id2='.$result["iduser"].'>Eliminar</button>
-                        </th>      
-                    </tr>';
+ 
+            $sellerRows = array();
+            $sellerRows["iduser"] = $result["iduser"];
+            $sellerRows["identity"] = $result["identity"];
+            $sellerRows["name"] = $result["name"];
+            $sellerRows["last_name"] = $result["last_name"];
+            $sellerRows["photo"] = '<img src="'.$result["picture"].'" style="width:50px; height:50px;">';
+            $sellerRows["email"] = $result["email"];
+            $sellerRows["role"] = $result["role"];
+            $sellerRows["city"] = $result["city"];
+            $sellerRows["status"] = $result["status"];
+            $sellerRows["edit"] = '<button type="button" id="btnEdit" data-id="'.$result["iduser"].'" class="btn btn-warning btn-xs update">Actualizar</button>';
+            $sellerRows["delete"] = '<button type="button" id="btnDelete" data-id2="'.$result["iduser"].'" class="btn btn-danger btn-xs delete">Eliminar</button>';
+            $sellerData[] = $sellerRows;
         }
-        $value .= '';
-        echo json_encode(array("status" => "success", "html" => $value));
+
+        echo json_encode($sellerData);
         exit();
         break;
     case 3:
-        $sql = "SELECT * FROM user INNER JOIN seller ON user.iduser = seller.user_iduser WHERE seller.user_iduser = :id";
-        $stament = $conexion -> connect() -> prepare($sql);
-        $stament -> bindParam(":id", $id);
-        $stament -> execute();
-        $result = $stament -> rowCount();
-            
-        if($result > 0) {
-            while($result = $stament -> fetch(PDO::FETCH_ASSOC)) {
+        
+        $getSeller = new crudAdministrator();
+        $getSeller = $getSeller -> getSeller($id);
+        if($getSeller) {
+            while($result = $getSeller -> fetch(PDO::FETCH_ASSOC)) {
                 $userData = array();
                 $userData[] = $result["iduser"];
                 $userData[] = $result["identity"];
@@ -92,42 +107,49 @@ switch($option) {
             echo json_encode($userData);
             exit();
         } else {
-            echo json_encode("Nada");
+            echo json_encode("No se pudo encontrar.");
             exit();
-        }
+        } 
         break;
     case 4:
-        $sql = "UPDATE seller INNER JOIN user ON user.iduser = seller.user_iduser SET user.name = :name, user.last_name = :last_name, user.email = :email, user.password = :password, seller.identity = :identity, seller.status = :status, seller.city = :city
-        WHERE user.iduser = :id";
-        $stament = $conexion -> connect() -> prepare($sql);
-
-        $stament -> bindParam(":id", $id);
-        $stament -> bindParam(":name", $name);
-        $stament -> bindParam(":last_name", $last_name);
-        $stament -> bindParam(":identity", $identity);
-        $stament -> bindParam(":status", $status);
-        $stament -> bindParam(":city", $city);
-        $stament -> bindParam(":email", $email);
-        $password = password_hash($password, PASSWORD_BCRYPT);
-        $stament -> bindParam(":password", $password);
-        
-        $stament -> execute();
-        $results = $stament -> rowCount();
-            
-        if($results > 0) {
-            echo "Información actualizada";
+        $update = new crudAdministrator();
+        /* if($update -> checkIfSellerExist($email)) {
+            echo json_encode(array("status" => 6));
             exit();
-        }
+        } else { */
+            if($update -> updateSeller($id, $name, $last_name, $identity, $status, $city, $email)) {
+                echo json_encode(array("status" => 4));
+                return exit();
+            } else {
+                echo json_encode(array("status" => 5));
+                return exit();
+            }
+        /* }*/
         break;
     case 5:
         $deleteSeller = new crudAdministrator();
-        if($deleteSeller -> deleteSeller($id)) {
-            echo "Eliminado!";
-            exit();
-        } else {
-            echo "No se pudo eliminar";
-            exit();
+        $getSeller = $deleteSeller -> getSeller($id);
+        if($getSeller) {
+            $userPhoto = array();
+            while($result = $getSeller -> fetch(PDO::FETCH_ASSOC)) {
+                $userPhoto["picture"] = $result["picture"];
+            }
+            if($userPhoto){
+
+                if($deleteSeller -> deleteSeller($id)) {
+                    unlink($userPhoto["picture"]);
+                    echo json_encode(array("status" => 6));
+                    exit();
+                } else {
+                    echo json_encode(array("status" => 7));
+                    exit();
+                }
+            } else {
+                echo json_encode(array("status" => 8));
+                exit();
+            }
         }
+        
         break;
 }
 // echo json_encode(array('id' => $result["iduser"], 'identity' => $result["identity"], 'name' => $result["name"], 'last_name' => $result["last_name"], 'city' => $result["city"], 'email' => $result["email"], 'status' => $result["status"]));

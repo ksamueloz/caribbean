@@ -60,6 +60,11 @@
                             </a>
                         </div>
                         <div class="md-3" class="links-li-su">   
+                            <a class="navbar-brand" href="manageTouristSites.php" data-bs-toggle="tooltip" data-placement="top" title="Sesión">
+                                Gestión de sitios
+                            </a>
+                        </div>
+                        <div class="md-3" class="links-li-su">   
                             <a class="navbar-brand" href="../../controller/logout.controller.php" data-bs-toggle="tooltip" data-placement="top" title="Sesión">
                                 Cerrar sesión
                             </a>
@@ -69,11 +74,27 @@
             </nav>
         </div>
     </header>
-    <div class="container" style="margin-top: 5%;">
+    <div class="container" style="margin-top: 10%;">
         <button type="button" id="newSeller" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#sellerModal">
             Nuevo vendedor
         </button>
-        <table id="table_seller"></table>
+        <table id="table_seller" class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Cédula</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Foto</th>
+                    <th scope="col">Correo</th>
+                    <th scope="col">Rol</th>
+                    <th scope="col">Ciudad</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Editar</th>
+                    <th scope="col">Eliminar</th>      
+                </tr>
+            </thead>
+        </table>
     </div>
     <!-- Modal -->
     <div class="modal fade" id="sellerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="sellerModalLabel" aria-hidden="true">
@@ -84,22 +105,26 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body"> 
-                    <form method="POST" id="sellerForm">
+                    <form method="POST" id="sellerForm" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label class="form-label float-left">N. Identidad</label>
-                            <input class="form-control" id="identity" name="identity" type="number" placeholder="Ingrese su numero de cedula">
+                            <input class="form-control" id="identity" name="identity" type="number" placeholder="Ingrese el número de cédula">
                         </div>
                         <div class="mb-3">
                             <label  class="form-label float-left">Nombre</label>
-                            <input class="form-control" id="name" name="name" type="text" placeholder="Ingrese su nombre">
+                            <input class="form-control" id="name" name="name" type="text" placeholder="Ingrese el nombre">
                         </div>
                         <div class="mb-3">
                             <label  class="form-label float-left">Apellido</label>
-                            <input class="form-control" id="last_name" name="last_name" type="text" placeholder="Ingrese su apellido">
+                            <input class="form-control" id="last_name" name="last_name" type="text" placeholder="Ingrese el apellido">
+                        </div>
+                        <div class="mb-3">
+                            <label  class="form-label float-left">Foto</label>
+                            <input class="form-control" id="photo" name="photo" type="file" accept="image/*">
                         </div>
                         <div class="mb-3">
                             <label  class="form-label float-left">Correo</label>
-                            <input class="form-control" id="email" name="email" type="email" placeholder="Ingrese su correo">
+                            <input class="form-control" id="email" name="email" type="email" placeholder="Ingrese el correo">
                         </div>
                         <div class="mb-3">
                             <label  class="form-label float-label">Contraseña</label>
@@ -154,11 +179,11 @@
                         </div>
                         <div class="mb-3">
                             <label  class="form-label float-left">Correo</label>
-                            <input class="form-control" id="updateEmail" name="email" type="email" placeholder="Ingrese su correo">
+                            <input class="form-control" id="updateEmail" name="email" type="email" placeholder="Ingrese su correo" disabled>
                         </div>
                         <div class="mb-3">
                             <label  class="form-label float-label">Contraseña</label>
-                            <input class="form-control" id="updatePassword" name="password" type="password" placeholder="Ingrese su contraseña">
+                            <input class="form-control" id="updatePassword" name="password" type="password" placeholder="Ingrese su contraseña" disabled>
                         </div>
                         <div class="mb-3">
                             <label class="form-label float-left">Elija la ciudad en la que labora</label>
@@ -186,8 +211,25 @@
             </div>
         </div>
     </div>
-
-    <!-- Eliminar informaci+on; -->
+    
+    <!-- Actualizar información; -->
+    <!-- Seller Modal -->
+    <div class="modal fade" id="confirmSellerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirmSellerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmSellerModalLabel">¿Está seguro de querer actualizar los datos?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body"> 
+                    <button type="button" class="btn btn-primary" id="btnConfirmSeller">Actualizar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btnClose">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>  
+    
+    <!-- Eliminar información; -->
     <!-- Seller Modal -->
     <div class="modal fade" id="deleteSellerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteSellerModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
@@ -204,7 +246,21 @@
         </div>
     </div>  
 
-<?php
-  require_once "footer.php";
-?>
-<?php } else{ header("Location: /caribbean"); } ?>
+    <!-- Footer -->
+    <div class="container container-fluid justify-content-center align-items-center text-center footer footer-admin" style="margin-top: 12%" >
+        <hr class="mb-4">
+            <footer class="text-center text-lg-start">
+                <section>
+                    <p class="d-flex justify-content-center align-items-center">
+                    <span class="me-3">&nbsp;</span>
+                        <a href="#">
+                            <!-- <button type="button" class="btn btn-primary btn-rounded">
+                                $nbsp;
+                            </button> -->
+                        </a>
+                    </p>
+                </section>
+            <?php
+                require_once "footer.php";
+            ?>
+    <?php } else { header("Location: /caribbean"); } ?>
