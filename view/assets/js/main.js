@@ -315,6 +315,7 @@ function deleteSeller() {
                         emptyFieldsOr("No se pudo eliminar.");
                     } else if (data.status == 8) {
                         emptyFieldsOr("No existe una foto para eliminar");
+                        $('#table_seller').DataTable().ajax.reload();
                     }
                 },
                 error: function(e) {
