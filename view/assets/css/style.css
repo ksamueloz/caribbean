@@ -181,24 +181,54 @@ img.DiagonalRedonda {
     text-decoration: underline;
 }
 
-.d-flex{
+.d-flex {
     float: left;
 }
+
 #sidebar-container {
     min-height: 100vh;
     background-color: #111b54 !important;
 }
-#sidebar-container .menu{
+
+#sidebar-container .menu {
     width: 14rem;
 }
-#btnpro{
+
+#btnpro {
     margin-top: 10%;
     margin-left: 10%;
+    width: 50%;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-.buscar.col-6{
-    margin-top:5%;
+.buscar.col-6 {
+    margin-top: 5%;
+    display: flex;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
-    
+
+
+/* Estilos para las cartas */
+
+.card {
+    overflow: hidden;
+    padding: 1rem;
+    width: 220px;
+    margin: 0 auto;
+    grid-template-columns: repeat(autofill, minmax(15 rem, 1fr));
+}
+
+.card-footer {
+    display: flex;
+}
+
+
+/* Estilos para las filas */
+
+.row {
+    margin-bottom: 4%;
+}
+
+.row>* {
+    margin-top: 4%;
+}

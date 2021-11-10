@@ -54,6 +54,9 @@
             </nav>
         </div>
     </header>
+
+    <!-- Sidebard -->
+
     <div class="container" style="margin-top: 5%;"></div>
         <div class="d-flex" >
             <div id="sidebar-container" >
@@ -71,63 +74,134 @@
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div class="tab-content">
-                <div class="tab-pane active show" id="tab-1">
-                    <div class="row">
+    </div>
+
+    <!-- Fin del Sidebard -->
+    
+    <!-- Operaciones sobre productos -->
+
+    <div class="container">
+        <div class="tab-content">
+            <div class="tab-pane active show" id="tab-1">
+                <div class="row">
                     <div class="col-6">
-                        <button class="btn btn-primary" id="btnpro">Agregar Productos</button>
+                        <button class="btn btn-primary form-control" id="btnpro" type="button" data-bs-toggle="modal" data-bs-target="#productModal">Agregar Productos</button>
                     </div>
                     <div class="buscar col-6">
-                        <input type="search" name="busquedaproduc" placeholder="Producto">
-                        <input class="btn-primary"type="submit" value="Buscar">
+                        <input type="search" name="busquedaproduc" placeholder="Busque un producto" class="form-control">
+                        <input class="btn-primary form-control"type="submit" value="Buscar">
                     </div>
+                </div>
+                <div class="justify-content-center">
+                    <h5>
+                        <p class="form-control p-2">
+                            Los productos que agregues estarán aquí:
+                        </p>
+                    </h5>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-block">
+                                <div>
+                                    <img class="card-img-top" src="..//assets/img/empanadas.jpg" alt="Imagen de producto">
+                                </div>
+                                <h4 class="card-title text-center justify-content-center">Nombre del producto</h4>
+                                <h6 class="card-subtitle text-muted text-center justify-content-center">
+                                    Un sabor sin igual
+                                </h6>
+                                <br/>
+                                <p class="card-text p-y-1">Breve descripción del producto.</p>
+                                <p class="card-text p-y-1">$Precio del producto.</p>
+                                <div class="card-footer">
+                                    <a href="#" class="card-link btn btn-success">Editar</a>
+                                    <a href="#" class="card-link btn btn-warning">Eliminar</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="row">
-                        <div class="col-3 p-3"> Aqui va los productos</div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-block">
+                                <div>
+                                    <img class="card-img-top" src="..//assets/img/empanadas.jpg" alt="Imagen de producto">
+                                </div>
+                                <h4 class="card-title text-center justify-content-center">Nombre del producto</h4>
+                                <h6 class="card-subtitle text-muted text-center justify-content-center">
+                                    Un sabor sin igual
+                                </h6>
+                                <br/>
+                                <p class="card-text p-y-1">Breve descripción del producto.</p>
+                                <p class="card-text p-y-1">$Precio del producto.</p>
+                                <div class="card-footer">
+                                    <a href="#" class="card-link btn btn-success">Editar</a>
+                                    <a href="#" class="card-link btn btn-warning">Eliminar</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-               </div>
-                <div class="tab-pane" id="tab-2">
-                    <div class="row p-3">
-                        <form action="">
-                            <div class="mb-3">
-                            <label class="form-label float-left">N. Identidad</label>
-                                <input class="form-control" id="identity" name="identity" type="number" placeholder="Ingrese el número de cédula">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-block">
+                                <div>
+                                    <img class="card-img-top" src="..//assets/img/empanadas.jpg" alt="Imagen de producto">
+                                </div>
+                                <h4 class="card-title text-center justify-content-center">Nombre del producto</h4>
+                                <h6 class="card-subtitle text-muted text-center justify-content-center">
+                                    Un sabor sin igual
+                                </h6>
+                                <br/>
+                                <p class="card-text p-y-1">Breve descripción del producto.</p>
+                                <p class="card-text p-y-1">$Precio del producto.</p>
+                                <div class="card-footer">
+                                    <a href="#" class="card-link btn btn-success">Editar</a>
+                                    <a href="#" class="card-link btn btn-warning">Eliminar</a>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label  class="form-label float-left">Nombre</label>
-                                <input class="form-control" id="name" name="name" type="text" placeholder="Ingrese el nombre">
-                            </div>
-                            <div class="mb-3">
-                                <label  class="form-label float-left">Apellido</label>
-                                <input class="form-control" id="last_name" name="last_name" type="text" placeholder="Ingrese el apellido">
-                            </div>
-                            <div class="mb-3">
-                                <label  class="form-label float-left">Foto</label>
-                                <input class="form-control" id="photo" name="photo" type="file" accept="image/*">
-                            </div>
-                            <div class="mb-3">
-                                <label  class="form-label float-left">Correo</label>
-                                <input class="form-control" id="email" name="email" type="email" placeholder="Ingrese el correo">
-                            </div>
-                            <div class="mb-3">
-                                <label  class="form-label float-label">Contraseña</label>
-                                <input class="form-control" id="password" name="password" type="password" placeholder="Ingrese su contraseña">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label float-left">Elija la ciudad en la que labora</label>
-                                <select id="city" name="city" class="form-control">
-                                    <option value="Santa Marta">Santa Marta</option>
-                                    <option value="Cartagena">Cartagena</option>
-                                </select>
-                            </div>
-                            <div class="modal-footer">
-                             <input type="submit" class=" btn-primary" id="btnUpdateSeller" value="Actualizar información">
-                             <button type="button" class=" btn-secondary" data-bs-dismiss="modal" id="btnClose">Cancelar</button>
-                           </div>
-                    </form>
-               </div>  
+                        </div>
+                    </div>
+                </div>
             </div>
+            <div class="tab-pane" id="tab-2">
+                <div class="row p-3">
+                    <form action="">
+                        <div class="mb-3">
+                        <label class="form-label float-left">N. Identidad</label>
+                            <input class="form-control" id="identity" name="identity" type="number" placeholder="Ingrese el número de cédula">
+                        </div>
+                        <div class="mb-3">
+                            <label  class="form-label float-left">Nombre</label>
+                            <input class="form-control" id="name" name="name" type="text" placeholder="Ingrese el nombre">
+                        </div>
+                        <div class="mb-3">
+                            <label  class="form-label float-left">Apellido</label>
+                            <input class="form-control" id="last_name" name="last_name" type="text" placeholder="Ingrese el apellido">
+                        </div>
+                        <div class="mb-3">
+                            <label  class="form-label float-left">Foto</label>
+                            <input class="form-control" id="photo" name="photo" type="file" accept="image/*">
+                        </div>
+                        <div class="mb-3">
+                            <label  class="form-label float-left">Correo</label>
+                            <input class="form-control" id="email" name="email" type="email" placeholder="Ingrese el correo">
+                        </div>
+                        <div class="mb-3">
+                            <label  class="form-label float-label">Contraseña</label>
+                            <input class="form-control" id="password" name="password" type="password" placeholder="Ingrese su contraseña">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label float-left">Elija la ciudad en la que labora</label>
+                            <select id="city" name="city" class="form-control">
+                                <option value="Santa Marta">Santa Marta</option>
+                                <option value="Cartagena">Cartagena</option>
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="submit" class=" btn-primary" id="btnUpdateSeller" value="Actualizar información">
+                            <button type="button" class=" btn-secondary" data-bs-dismiss="modal" id="btnClose">Cancelar</button>
+                        </div>
+                </form>
+            </div>  
         </div>
     </div>
     
