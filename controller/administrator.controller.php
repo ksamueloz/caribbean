@@ -33,7 +33,7 @@ switch($option) {
 
         if (in_array($photo_ext, $extensions)) {
             if ($photo_size < 2000000) {
-                $status = True;
+                $statusF = True;
             } else {
                 echo json_encode(array("status" => 4));
                 exit();
@@ -44,7 +44,7 @@ switch($option) {
         }
     
 
-        if($status) {
+        if($statusF) {
             $newSeller = new crudAdministrator();
             if($newSeller -> checkIfSellerExist($email)) {
                 echo json_encode(array("status" => 3));
@@ -130,16 +130,17 @@ switch($option) {
             while($result = $getSeller -> fetch(PDO::FETCH_ASSOC)) {
                 $userPhoto["picture"] = $result["picture"];
             }
-            if($userPhoto){
-
-                if($deleteSeller -> deleteSeller($id)) {
-                    unlink($userPhoto["picture"]);
+            if($deleteSeller -> deleteSeller($id)) {
+                    
                     echo json_encode(array("status" => 6));
                     exit();
                 } else {
                     echo json_encode(array("status" => 7));
                     exit();
                 }
+            if($userPhoto){
+                unlink($userPhoto["picture"]);
+                
             } else {
                 echo json_encode(array("status" => 8));
                 exit();
