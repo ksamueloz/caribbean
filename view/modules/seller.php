@@ -102,7 +102,9 @@
                         </h4>
                     </h5>
                 </div>
-                <div class="row">
+                <div class="row cards-products">
+                    
+                <!--
                     <div class="col-12 col-md-6 col-lg-4 mb-4">
                         <div class="card">
                             <div class="card-block">
@@ -123,46 +125,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-4 mb-4">
-                        <div class="card">
-                            <div class="card-block">
-                                <div>
-                                    <img class="card-img-top" src="..//assets/img/empanadas.jpg" alt="Imagen de producto">
-                                </div>
-                                <h4 class="card-title text-center justify-content-center">Nombre del producto</h4>
-                                <h6 class="card-subtitle text-muted text-center justify-content-center">
-                                    Un sabor sin igual
-                                </h6>
-                                <br/>
-                                <p class="card-text p-y-1">Breve descripción del producto.</p>
-                                <p class="card-text p-y-1">$Precio del producto.</p>
-                                <div class="card-footer">
-                                    <a href="#" class="card-link btn btn-success">Editar</a>
-                                    <a href="#" class="card-link btn btn-warning">Eliminar</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 mb-4">
-                        <div class="card">
-                            <div class="card-block">
-                                <div>
-                                    <img class="card-img-top" src="..//assets/img/empanadas.jpg" alt="Imagen de producto">
-                                </div>
-                                <h4 class="card-title text-center justify-content-center">Nombre del producto</h4>
-                                <h6 class="card-subtitle text-muted text-center justify-content-center">
-                                    Un sabor sin igual
-                                </h6>
-                                <br/>
-                                <p class="card-text p-y-1">Breve descripción del producto.</p>
-                                <p class="card-text p-y-1">$Precio del producto.</p>
-                                <div class="card-footer">
-                                    <a href="#" class="card-link btn btn-success">Editar</a>
-                                    <a href="#" class="card-link btn btn-warning">Eliminar</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                -->
                 </div>
             </div>
             <div class="tab-pane" id="tab-2">

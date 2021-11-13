@@ -56,7 +56,18 @@ function insertProduct() {
 }
 
 function viewProducts() {
-    console.log("Visualización de productos");
+    $.ajax({
+        url: "seller.php",
+        method: "POST",
+        data: { option: "viewProducts" },
+        success: function(response) {
+            response = $.parseJSON(response);
+            if (response.status == "success") {
+                console.log(response.cards);
+                $(".row.cards-products").html(response.cards);
+            }
+        }
+    });
 }
 
 /* 
