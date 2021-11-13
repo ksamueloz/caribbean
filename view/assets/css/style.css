@@ -183,11 +183,16 @@ img.DiagonalRedonda {
 
 .d-flex {
     float: left;
+    /* width: -webkit-fill-available; */
 }
 
 #sidebar-container {
     min-height: 100vh;
-    background-color: #111b54 !important;
+    background-color: #0d6efd;
+    color: rgb(3, 56, 136);
+    /* position: fixed; */
+    height: 120vh;
+    line-height: 25vh;
 }
 
 #sidebar-container .menu {
@@ -197,7 +202,8 @@ img.DiagonalRedonda {
 #btnpro {
     margin-top: 10%;
     margin-left: 10%;
-    width: 50%;
+    width: 48%;
+    justify-content: space-between;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
@@ -205,6 +211,14 @@ img.DiagonalRedonda {
     margin-top: 5%;
     display: flex;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.row.options {
+    margin-top: 5%;
+}
+
+.modal-header.data {
+    margin-top: 5%;
 }
 
 
@@ -231,4 +245,12 @@ img.DiagonalRedonda {
 
 .row>* {
     margin-top: 4%;
+}
+
+
+/* Foto de perfil vendedor*/
+
+img.photo-profile {
+    display: block;
+    margin: 0 auto;
 }

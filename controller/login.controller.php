@@ -33,6 +33,7 @@
                     } else if ($results["status"] == "Aprobado") {
                         
                         $_SESSION["session"] = "session_started";
+                        $_SESSION["iduser"] = $results["iduser"];
                         $_SESSION["name"] = $results["name"];
                         $_SESSION["last_name"] = $results["last_name"];
                         $_SESSION["email"] = $results["email"];

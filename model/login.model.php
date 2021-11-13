@@ -29,7 +29,9 @@
                         return array('role' => $user["role"], 'status' => $userStatus["status"]);
                     }
                     else if ($userStatus["status"] == "Aprobado") {
-                        return array('name' => $user["name"],
+                        return array(
+                             'iduser' => $user["iduser"],
+                             'name' => $user["name"],
                              'last_name' => $user["last_name"],
                              'email' => $user["email"],
                              'picture' => $user["picture"],
