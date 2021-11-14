@@ -131,41 +131,41 @@
             <div class="tab-pane" id="tab-2">
                 <div class="row p-3">
                     <div class="modal-header data">
-                        <h5 class="modal-title" id="sellerProductModalLabel">Datos Personales</h5>
+                        <h5 class="modal-title" id="sellerProfileModalLabel">Datos Personales</h5>
                     </div>
-                    <form action="">
+                    <form method="POST" id="profileForm" enctype="multipart/form-data">
                         <div class="mb-3">
-                            <img src="../assets/img/avatar1.jpg" alt="Foto de perfil" class="photo-profile">
+                            <img src="#" alt="Foto de perfil" id="photoProfile" name="photoProfile" class="photo-profile" width=200 height=200>
                         </div>
                         <div class="mb-3">
                             <label class="form-label float-left">N. Identidad</label>
-                            <input class="form-control" id="identityPerfil" name="identityPerfil" type="number" placeholder="Número de identidad">
+                            <input class="form-control" id="identityProfile" name="identityProfile" type="number" placeholder="Número de identidad">
                         </div>
                         <div class="mb-3">
                             <label  class="form-label float-left">Nombre</label>
-                            <input class="form-control" id="namePerfil" name="namePerfil" type="text" placeholder="Nombre (s) del usuario.">
+                            <input class="form-control" id="nameProfile" name="nameProfile" type="text" placeholder="Nombre (s) del usuario.">
                         </div>
                         <div class="mb-3">
                             <label  class="form-label float-left">Apellido</label>
-                            <input class="form-control" id="lastNamePerfil" name="lastNamePerfil" type="text" placeholder="Apellido (s) del usuario.">
+                            <input class="form-control" id="lastNameProfile" name="lastNameProfile" type="text" placeholder="Apellido (s) del usuario.">
                         </div>
                         <div class="mb-3">
                             <label  class="form-label float-left">Cambiar foto de perfil</label>
-                            <input class="form-control" id="photoPerfil" name="photoPerfil" type="file" accept="image/*" placeholder="Foto de perfil">
+                            <input class="form-control" id="photoProfile" name="photoProfile" type="file" accept="image/*" placeholder="Foto de perfil">
                         </div>
                         <div class="mb-3">
                             <label  class="form-label float-left">Correo</label>
-                            <input class="form-control" id="emailPerfil" name="emailPerfil" type="email" placeholder="Correo electrónico.">
+                            <input class="form-control" id="emailProfile" name="emailProfile" type="email" placeholder="Correo electrónico." disabled>
                         </div>
                         <div class="mb-3">
                             <label class="form-label float-left">Elija la ciudad en la que labora</label>
-                            <select id="city" name="city" class="form-control">
+                            <select id="cityProfile" name="cityProfile" class="form-control">
                                 <option value="Santa Marta">Santa Marta</option>
                                 <option value="Cartagena">Cartagena</option>
                             </select>
                         </div>
                         <div class="mb-3 modal-footer">
-                            <input type="submit" class="btn-primary" id="btnUpdateSellerPerfil" value="Actualizar información">
+                            <input type="button" class="btn-primary" id="btnUpdateSellerProfile" value="Actualizar información">
                             <button type="button" class="btn-secondary" data-bs-dismiss="modal" id="btnClose">Cancelar</button>
                         </div>
                 </form>

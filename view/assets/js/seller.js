@@ -7,11 +7,16 @@ $(document).ready(function() {
     updateProduct();
     deleteProduct();
 
+    // Edición de perfil.
+    viewProfile();
+    updateProfile();
+
 });
 
 /*
 
-    Funciones necesarias para el CRUD de productos por los Vendedores por parte de un Administrador.
+    Funciones necesarias para el CRUD (Creación, Visualización, Edición y Eliminación) de productos
+    por parte de un Vendedor.
 
 */
 
@@ -51,6 +56,7 @@ function insertProduct() {
                         goodNews("Excelente", "Has agregado un nuevo producto.");
                         viewProducts();
                         $("form").trigger("reset");
+                        viewProfile();
                     }
                 },
                 error: function(e) {
@@ -158,7 +164,7 @@ function updateProduct() {
                                 goodNews("Excelente!", "Has actualizado la información de este producto.");
                             } else if (data.status == "Producto no actualizado") {
                                 emptyFieldsOr("No se pudo actualizar la información de este producto.");
-                            } else if (data.status == "Foto grande" || data.success == "Imagen no permitida") {
+                            } else if (data.status == "Foto grande" || data.status == "Imagen no permitida") {
                                 emptyFieldsOr("Revise que la imagen no sea demasiado grande < a 2 MB y cuente con una extensión tipo JPEG, JPG o PNG");
                             }
                             // else if (data.status == "Sin foto") {
@@ -216,8 +222,99 @@ function deleteProduct() {
         });
     });
 }
+
+// Ver información del pefil.
+
+function viewProfile() {
+    $.ajax({
+        url: "seller.php",
+        method: "POST",
+        data: { option: "viewProfile" },
+        success: function(response) {
+            response = $.parseJSON(response);
+            //console.log(response.data_profile);
+            $("#identityProfile").val(response.data_profile[0]);
+            $("#nameProfile").val(response.data_profile[1]);
+            $("#lastNameProfile").val(response.data_profile[2]);
+            $("#photoProfile").attr("src", response.data_profile[3]);
+            $("#emailProfile").val(response.data_profile[4]);
+            $("#cityProfile").val(response.data_profile[5]);
+        }
+    });
+}
+
+// Actualizar información del perfil.
+
+function updateProfile() {
+
+    $(document).on("click", "#btnUpdateSellerProfile", function() {
+
+        let identityProfile = $("#identityProfile").val();
+        let nameProfile = $("#nameProfile").val();
+        let lastNameProfile = $("#lastNameProfile").val();
+        let emailProfile = $("#emailProfile").val();
+        let cityProfile = $("#cityProfile").val();
+
+        let formData = new FormData();
+        formData.append("identityProfile", identityProfile);
+        formData.append("nameProfile", nameProfile);
+        formData.append("lastNameProfile", lastNameProfile);
+        formData.append("emailProfile", emailProfile);
+        formData.append("cityProfile", cityProfile);
+
+        /* file: Lectura de la información de la foto a subir. */
+        let file = $("input[name='photoProfile']").prop('files');
+        formData.append("photoProfile", file[0]);
+        formData.append("option", "updateProfile");
+
+
+        if (identityProfile == "" || nameProfile == "" || lastNameProfile == "" || emailProfile == "" || cityProfile == "") {
+            emptyFieldsOr("Revise que ningún campo esté vacío.");
+        } else {
+            Swal.fire({
+                title: '¿Estás seguro de querer actualizar los datos de tu perfil?',
+                text: "No podrás revertir esta acción!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, actualiza mi información personal!'
+            }).then((result) => {
+                console.log(formData);
+
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "seller.php",
+                        method: "POST",
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function(data) {
+                            data = $.parseJSON(data);
+                            console.log(data);
+
+                            if (data.status == "Perfil actualizado") {
+                                $("form").trigger("reset");
+                                viewProfile();
+                                goodNews("Bien hecho!", "Has actualizado tu información personal sin problemas");
+                            } else if (data.status == "Perfil no actualizado") {
+                                emptyFieldsOr("No se pudo actualizar la información de este perfil.");
+                            } else if (data.status == "Foto grande" || data.status == "Imagen no permitida") {
+                                emptyFieldsOr("Revise que la imagen no sea demasiado grande < a 2 MB y cuente con una extensión tipo JPEG, JPG o PNG");
+                            }
+                        },
+                        error: function(e) {
+                            console.log(e);
+                        }
+                    });
+                }
+            });
+        }
+    });
+}
+
 /* 
-    Funciones de mensajes de error y exito. 
+    Funciones de mensajes de error y éxito. 
 */
 
 function emptyFieldsOr(message) {

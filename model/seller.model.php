@@ -104,5 +104,74 @@
                 return false;
             }
         }
+
+        public function getProfile($id_seller) {
+            $sql = "SELECT * FROM seller INNER JOIN user ON seller.user_iduser = user.iduser WHERE user.iduser = :id_seller";
+            $stament = $this -> connect() -> prepare($sql);
+            $stament -> bindParam(":id_seller", $id_seller);
+            $stament -> execute();
+
+            $result = $stament -> rowCount();
+
+            if($result > 0) {
+                $userData = array();
+                while($result = $stament -> fetch(PDO::FETCH_ASSOC)) {
+                    
+                    $userData[] = $result["identity"];
+                    $userData[] = $result["name"];
+                    $userData[] = $result["last_name"];
+                    $userData[] = $result["picture"];
+                    $userData[] = $result["email"];
+                    $userData[] = $result["city"];
+                }
+                return $userData;
+            }
+            return false;
+        }
+
+        public function updateProfileWithoutPhoto($id_seller, $name, $last_name, $identity, $city, $email) {
+            
+            $sql = "UPDATE seller INNER JOIN user ON user.iduser = seller.user_iduser SET user.name = :name, user.last_name = :last_name, user.email = :email, seller.identity = :identity, seller.city = :city
+            WHERE user.iduser = :id_seller";
+            $stament = $this -> connect() -> prepare($sql);
+
+            $stament -> bindParam(":id_seller", $id_seller);
+            $stament -> bindParam(":name", $name);
+            $stament -> bindParam(":last_name", $last_name);
+            $stament -> bindParam(":identity", $identity);
+            $stament -> bindParam(":city", $city);
+            $stament -> bindParam(":email", $email);
+            
+            $stament -> execute();
+            $results = $stament -> rowCount();
+                
+            if($results > 0) {
+                return true;
+            } 
+            return false;
+        }
+
+        public function updateProfileWithPhoto($id_seller, $name, $last_name, $identity, $city, $email, $picture) {
+            
+            $sql = "UPDATE seller INNER JOIN user ON user.iduser = seller.user_iduser SET user.name = :name, user.last_name = :last_name, user.email = :email, user.picture = :picture, seller.identity = :identity, seller.city = :city
+            WHERE user.iduser = :id_seller";
+            $stament = $this -> connect() -> prepare($sql);
+
+            $stament -> bindParam(":id_seller", $id_seller);
+            $stament -> bindParam(":name", $name);
+            $stament -> bindParam(":last_name", $last_name);
+            $stament -> bindParam(":identity", $identity);
+            $stament -> bindParam(":city", $city);
+            $stament -> bindParam(":email", $email);
+            $stament -> bindParam(":picture", $picture);
+            
+            $stament -> execute();
+            $results = $stament -> rowCount();
+                
+            if($results > 0) {
+                return true;
+            } 
+            return false;
+        }
     }
 ?>

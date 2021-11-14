@@ -172,6 +172,73 @@ switch($option) {
                         exit();
                 }
                 break; 
+
+        case "viewProfile":
+
+                $getProf = new seller();
+                $getProf = $getProf -> getProfile($_SESSION["iduser"]);
+                echo json_encode(array("data_profile" => $getProf));
+                exit();
+                break;
+
+        case "updateProfile":
+                $identityProfile = $_POST["identityProfile"];
+                $nameProfile = $_POST["nameProfile"];
+                $lastNameProfile = $_POST["lastNameProfile"];
+                $emailProfile = $_POST["emailProfile"];
+                $cityProfile  = $_POST["cityProfile"];
+
+                $updateProfile = new seller();
+                if(isset($_FILES['photoProfile']['name'])) {
+                        $photo_name = $_FILES['photoProfile']['name'];
+                        $tmp_dir = $_FILES["photoProfile"]["tmp_name"];
+                        $photo_size = $_FILES["photoProfile"]["size"];
+
+                        $random = rand(100, 1000);
+                        $photo_dir = "../assets/seller-img/" . $random . $photo_name;
+                        $photo_ext = strtolower(pathinfo($photo_name, PATHINFO_EXTENSION));
+                        $extensions = array("jpeg", "jpg", "png");
+
+                        if (in_array($photo_ext, $extensions)) {
+                                if ($photo_size < 2000000) {
+                                        $statusProfile = True;
+                                } else {
+                                        echo json_encode(array("status" => "Foto grande"));
+                                        exit();
+                                }
+                        } else {
+                                echo json_encode(array("status" => "Imagen no permitida"));
+                                exit();
+                        }
+
+                        if ($statusProfile) {
+                                $getPhotoProfile = new seller();
+                                $getPhotoProfile = $getPhotoProfile -> getProfile($_SESSION["iduser"]);
+                                if ($updateProfile -> updateProfileWithPhoto($_SESSION["iduser"], $nameProfile, $lastNameProfile, $identityProfile, $cityProfile, $emailProfile, $photo_dir)) {
+                                        unlink($getPhotoProfile[3]);
+                                        move_uploaded_file($tmp_dir, $photo_dir);
+                                        echo json_encode(array("status" => "Perfil actualizado"));
+                                        exit();
+                                }
+                                else {
+                                        echo json_encode(array("status" => "Perfil no actualizado"));
+                                        exit();  
+                                }
+                        }
+                }
+                else {
+
+                        if ($updateProfile -> updateProfileWithoutPhoto($_SESSION["iduser"], $nameProfile, $lastNameProfile, $identityProfile, $cityProfile, $emailProfile)) {
+                                echo json_encode(array("status" => "Perfil actualizado"));
+                                exit();
+                        }
+                        else {
+                                echo json_encode(array("status" => "Perfil no actualizado"));
+                                exit();  
+                        }
+                }
+
+                break;
 }
 
 ?>
