@@ -210,6 +210,43 @@
         </div>
     </div>
     
+
+    <!-- Modal de actualización de productos -->
+    <div class="modal fade" id="productUpdateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productUpdateModalLabel">Actualizar producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body"> 
+                    <form method="POST" id="sellerForm" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label  class="form-label float-left">Nombre del producto</label>
+                            <input class="form-control" id="productNameUpdate" name="productNameUpdate" type="text" placeholder="Ingrese el nombre del producto">
+                        </div>
+                        <div class="mb-3">
+                            <label  class="form-label float-left">Descripción</label>
+                            <input class="form-control" id="productDescUpdate" name="productDescUpdate" type="text" placeholder="Breve descripción del producto.">
+                        </div>
+                        <div class="mb-3">
+                            <label  class="form-label float-left">Precio del producto</label>
+                            <input class="form-control" id="productPriceUpdate" name="productPriceUpdate" type="number" placeholder="Ingrese el precio unitario en pesos colombianos.">
+                        </div>
+                        <div class="mb-3">
+                            <label  class="form-label float-left">Foto</label>
+                            <input class="form-control" id="productPhotoUpdate" name="productPhotoUpdate" type="file" accept="image/*">
+                        </div>
+                        <input type="hidden" name="idProdUpdate" id="idProdUpdate">
+                    </form>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="btnUpdateProduct">Actualizar producto</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btnClose">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

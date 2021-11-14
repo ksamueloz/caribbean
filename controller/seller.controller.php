@@ -3,7 +3,9 @@
 $nameProduct = (isset($_POST["nameProduct"])) ? $_POST["nameProduct"]: "";
 $descProduct = (isset($_POST["descProduct"])) ? $_POST["descProduct"]: "";
 $priceProduct = (isset($_POST["priceProduct"])) ? $_POST["priceProduct"]: "";
+
 $option = (isset($_POST["option"])) ? $_POST["option"]: "";
+$idProduct = (isset($_POST["idProduct"])) ? $_POST["idProduct"]: "";
 
 
 switch($option) {
@@ -68,8 +70,8 @@ switch($option) {
                         $cards .= $result["price"];
                         $cards .= '</p>';
                         $cards .= '<div class="card-footer">';
-                        $cards .= '<a href="#" class="card-link btn btn-success" data-ProEdit="'.$result["idproduct"].'">Editar</a>';
-                        $cards .= '<a href="#" class="card-link btn btn-success" data-ProDel="'.$result["idproduct"].'">Eliminar</a>';
+                        $cards .= '<a href="#" class="card-link btn btn-success" id="btnProdEdit" data-ProEdit="'.$result["idproduct"].'">Editar</a>';
+                        $cards .= '<a href="#" class="card-link btn btn-warning" id="btnProdDel" data-ProDel="'.$result["idproduct"].'">Eliminar</a>';
                         $cards .= '</div>';
                         $cards .= '</div>';
                         $cards .= '</div>';
@@ -77,14 +79,78 @@ switch($option) {
                         
                 }
 
-                // echo json_encode(array('status' => "success", $productsData));
+                //echo json_encode(array('status' => "success", $productsData));
                 echo json_encode(array('status' => "success", 'cards' => $cards));
                 exit();
-                
-                        
-                    
                 break;
+        
+        case "getParticularProduct":
+                $getProduct = new seller();
+                $result = $getProduct ->  getParticularProduct($idProduct);
+                if($result) {
+                    echo json_encode($result);
+                    exit();
+                    break;
+                } else {
+                    echo json_encode(array("status" => "Hubo un problema"));
+                    exit();
+                }
+                break;
+        case "updateProduct":
+                $nameProduct = $_POST["productNameUpdate"];
+                $descProduct = $_POST["productDescUpdate"];
+                $priceProduct = $_POST["productPriceUpdate"];
+                $idProduct = $_POST["idProduct"];
 
+                $updateProduct = new seller();
+                if(isset($_FILES['productPhotoUpdate']['name'])) {
+
+                        $productPhotoName = $_FILES['productPhotoUpdate']['name'];
+                        $tmp_dir = $_FILES["productPhotoUpdate"]["tmp_name"];
+                        $photo_size = $_FILES["productPhotoUpdate"]["size"];
+                        
+                        $random = rand(100, 1000);
+                        $photo_dir = "../assets/product-img/" . $random . $productPhotoName;
+                        $photo_ext = strtolower(pathinfo($productPhotoName, PATHINFO_EXTENSION));
+                        $extensions = array("jpeg", "jpg", "png");
+
+                        if (in_array($photo_ext, $extensions)) {
+                                if ($photo_size < 2000000) {
+                                        $status = True;
+                                } else {
+                                        echo json_encode(array("status" => "Foto grande"));
+                                        exit();
+                                }
+                        } else {
+                                echo json_encode(array("status" => "Imagen no permitida"));
+                                exit();
+                        }
+
+                        // Si la foto cumple todas las condiciones seguirá el proceso.
+
+                        if ($status) {
+                                if($updateProduct -> updateProductWithPhoto($idProduct, $nameProduct, $descProduct, $photo_dir, $priceProduct)) {
+                                        move_uploaded_file($tmp_dir, $photo_dir);
+                                        echo json_encode(array("status" => "Producto actualizado"));
+                                        exit();
+                                }
+                                else {
+                                        echo json_encode(array("status" => "Producto no actualizado"));
+                                        exit();
+                                }
+                        }
+                } else {
+                        if($updateProduct -> updateProductWithoutPhoto($idProduct, $nameProduct, $descProduct, $priceProduct)) {
+                                echo json_encode(array("status" => "Producto actualizado"));
+                                exit();
+                        }
+                        else {
+                                echo json_encode(array("status" => "Producto no actualizado"));
+                                exit();
+                        }
+                }
+                
+                break;
 }
 
 ?>
