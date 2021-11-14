@@ -155,14 +155,16 @@ switch($option) {
         case "deleteProduct":
 
                 $deleteProduct = new seller();
+                $getPhoto = new seller();
+                $getPhoto = $getPhoto -> getParticularProduct($idProduct);
 
                 if($deleteProduct -> deleteProduct($idProduct)) {
-
+                        unlink($getPhoto[2]);
                         echo json_encode(array("status" => "Eliminado"));
                         exit();
 
                 } else {
-                        
+
                         echo json_encode(array("status" => "Sin eliminar"));
                         exit();
                 }
