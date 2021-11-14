@@ -5,6 +5,7 @@ $(document).ready(function() {
     viewProducts();
     getParticularProduct();
     updateProduct();
+    deleteProduct();
 
 });
 
@@ -140,7 +141,7 @@ function updateProduct() {
                 confirmButtonText: 'Sí, actualízalo!'
             }).then((result) => {
                 console.log(formData);
-                $("#btnUpdateProduct").modal("hide");
+
                 if (result.isConfirmed) {
                     $.ajax({
                         url: "seller.php",
@@ -153,7 +154,8 @@ function updateProduct() {
 
                             if (data.status == "Producto actualizado") {
                                 viewProducts();
-                                goodNews("success", "Has actualizado la información de este producto.");
+                                $("#productUpdateModal").modal("hide");
+                                goodNews("Excelente!", "Has actualizado la información de este producto.");
                             } else if (data.status == "Producto no actualizado") {
                                 emptyFieldsOr("No se pudo actualizar la información de este producto.");
                             } else if (data.status == "Foto grande" || data.success == "Imagen no permitida") {
@@ -170,6 +172,48 @@ function updateProduct() {
                 }
             });
         }
+    });
+}
+
+// Eliminar el producto escogido.
+
+function deleteProduct() {
+    $(document).on("click", "#btnProdDel", function() {
+
+        let idProduct = $(this).attr("data-ProDel");
+        //alert(deleteId);
+
+        Swal.fire({
+            title: '¿En verdad quieres eliminar este producto?',
+            text: "No podrás revertir esta acción!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#d3085d6',
+            confirmButtonText: 'Sí, elimínalo!'
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "seller.php",
+                    method: "POST",
+                    data: { idProduct: idProduct, option: "deleteProduct" },
+                    success: function(data) {
+                        data = $.parseJSON(data);
+
+                        if (data.status == "Eliminado") {
+                            viewProducts();
+                            goodNews("Perfecto!", "Has eliminado este producto.");
+                        } else if (data.status == "Sin eliminar") {
+                            emptyFieldsOr("No se pudo eliminar el producto seleccionado.");
+                        }
+                    },
+                    error: function(e) {
+                        console.log(e);
+                    }
+                });
+            }
+        });
     });
 }
 /* 

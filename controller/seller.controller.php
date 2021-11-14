@@ -151,6 +151,22 @@ switch($option) {
                 }
                 
                 break;
+        
+        case "deleteProduct":
+
+                $deleteProduct = new seller();
+
+                if($deleteProduct -> deleteProduct($idProduct)) {
+
+                        echo json_encode(array("status" => "Eliminado"));
+                        exit();
+
+                } else {
+                        
+                        echo json_encode(array("status" => "Sin eliminar"));
+                        exit();
+                }
+                break; 
 }
 
 ?>
