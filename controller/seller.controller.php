@@ -129,7 +129,10 @@ switch($option) {
                         // Si la foto cumple todas las condiciones seguirá el proceso.
 
                         if ($status) {
+                                $getPhoto = new seller();
+                                $getPhoto = $getPhoto -> getParticularProduct($idProduct);
                                 if($updateProduct -> updateProductWithPhoto($idProduct, $nameProduct, $descProduct, $photo_dir, $priceProduct)) {
+                                        unlink($getPhoto[2]);
                                         move_uploaded_file($tmp_dir, $photo_dir);
                                         echo json_encode(array("status" => "Producto actualizado"));
                                         exit();
