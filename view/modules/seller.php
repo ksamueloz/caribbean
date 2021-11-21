@@ -135,7 +135,7 @@
                     </div>
                     <form method="POST" id="profileForm" enctype="multipart/form-data">
                         <div class="mb-3">
-                            <img src="#" alt="Foto de perfil" id="photoProfile" name="photoProfile" class="photo-profile" width=200 height=200>
+                            <img src="#" alt="Foto de perfil" id="photoProfile" name="photoProfile" class="photo-profile" width=200 height=240>
                         </div>
                         <div class="mb-3">
                             <label class="form-label float-left">N. Identidad</label>
