@@ -155,21 +155,21 @@
                 <img src="view/assets/img/muralla.jpg" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>First slide label</h5>
-                    <p>Some representative placeholder content for the first slide.</p>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aperiam sequi, accusantium ipsam consequuntur quaerat commodi?</p>
                 </div>
             </div>
             <div class="carousel-item">
                 <img src="view/assets/img/taganga.png" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Second slide label</h5>
-                    <p>Some representative placeholder content for the second slide.</p>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aperiam sequi, accusantium ipsam consequuntur quaerat commodi?</p>
                 </div>
             </div>
             <div class="carousel-item">
                 <img src="view/assets/img/rodadero.jpg" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Third slide label</h5>
-                    <p>Some representative placeholder content for the third slide.</p>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aperiam sequi, accusantium ipsam consequuntur quaerat commodi?</p>
                 </div>
             </div>
         </div>

@@ -15,8 +15,8 @@
             }
             return false;
         }
-        public function registerNewUserAsSeller($name, $last_name, $identity, $city, $email, $password) {
-            $sql = "INSERT INTO user (name, last_name, email, password, role) VALUES (:name, :last_name, :email, :password, 2);";
+        public function registerNewUserAsSeller($name, $last_name, $identity, $city, $email, $password, $code) {
+            $sql = "INSERT INTO user (name, last_name, email, password, role, code) VALUES (:name, :last_name, :email, :password, 2, :code);";
             $sql .= "INSERT INTO seller (user_iduser, identity, status, city) VALUES ((SELECT iduser FROM user where iduser = (select MAX(iduser) from user)), :identity, 1, :city);";
             $stament = $this -> connect() -> prepare($sql);
 
@@ -27,6 +27,7 @@
             $stament -> bindParam(":email", $email);
             $password = password_hash($password, PASSWORD_BCRYPT);
             $stament -> bindParam(":password", $password);
+            $stament -> bindParam(":code", $code);
             
             $stament -> execute();
             $results = $stament -> rowCount();

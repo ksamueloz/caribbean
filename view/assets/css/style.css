@@ -364,19 +364,20 @@ img.photo-profile {
 }
 
 input#nameSiteSearch {
-    margin-top: 18%;
+    margin-top: 3%;
     padding: 3%;
 }
 
 textarea#descriptionSiteSearch {
     padding: 3%;
     resize: none;
+    margin-top: 3%;
 }
 
 input#nameSiteSearch,
 textarea#descriptionSiteSearch {
     width: 80%;
-    margin-bottom: 5%;
+    margin-bottom: 4%;
 }
 
 .data-2 img {

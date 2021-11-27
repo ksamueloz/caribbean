@@ -16,7 +16,7 @@ function searchSites() {
                 data: { nameSites: nameSites, option: "searchSites" },
                 success: function(data) {
                     data = $.parseJSON(data);
-                    console.log(data);
+                    console.log(data.status);
 
                     if (data.site) {
                         console.log(data.site);
@@ -29,7 +29,7 @@ function searchSites() {
 
                     }
                     if (data.status == "Hubo un problema") {
-                        console.log("No encontramos información sobre este sitio :(");
+                        emptyFieldsOr("No encontramos información sobre este sitio :(");
                     }
                     // if (data == "success") {
                     //     console.log(data.cards);

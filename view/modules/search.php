@@ -83,7 +83,7 @@ require_once "../../controller/search.controller.php";
         <div class="container search">
             <div class="col-6 c1">
                 <form method="POST">
-                    <input type="text" class="form-control" name="search-sites" id="search-sites" placeholder="Busca un sitio">
+                    <input type="text" class="form-control" name="search-sites" id="search-sites" placeholder="Busca un sitio por su nombre">
                     <div class="col-6 c2">
                         <input type="button" class="form-control btn btn-primary" value="Buscar" id="btnSearchSites">
                     </div>
@@ -98,7 +98,9 @@ require_once "../../controller/search.controller.php";
 <section>
         <div class="container dt">
             <div class="col data-1">
+                <label for="nameSiteSearch">Nombre del lugar</label>
                 <input type="text" class="form-control" name="nameSiteSearch" id="nameSiteSearch" placeholder="Aquí saldrá el nombre del sitio." disabled>
+                <label for="descriptionSSiteSearch">Descripción</label>
                 <textarea class="form-control" name="descriptionSiteSearch" id="descriptionSiteSearch"  cols="20" rows="4" placeholder="Aquí saldrá la descripción del sitio." disabled></textarea>
             </div>
             <div class="col data-2">

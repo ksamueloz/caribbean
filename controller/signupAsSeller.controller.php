@@ -15,13 +15,18 @@
             $email = $_POST["email"];
             $password = $_POST["password"];
 
+            // Generación de código de 4 digitos.
+            
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+            $code = substr(str_shuffle($characters), 0, 4);
+
             $user = new userRegisterAsSeller();
             if($user -> checkIfUserExist($email)){
                 //$message = "Existe en nuestra base de datos";
                 echo json_encode(array('status' => 1));
                 exit();
             } else {
-                $user -> registerNewUserAsSeller($name, $last_name, $identity, $city, $email, $password);
+                $user -> registerNewUserAsSeller($name, $last_name, $identity, $city, $email, $password, $code);
                 //$message = "Registro exitoso";
                 echo json_encode(array('status' => 2));
                 exit();
