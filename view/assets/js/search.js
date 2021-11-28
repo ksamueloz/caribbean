@@ -1,5 +1,6 @@
 $(document).ready(function() {
     searchSites();
+    searchSeller();
     uploadScript();
 });
 
@@ -44,6 +45,57 @@ function searchSites() {
     });
 }
 
+
+// Búsqueda de un determinado vendedor.
+
+function searchSeller() {
+    $(document).on("click", "#btnSearchSeller", function() {
+        let code = $.trim($("#search-seller").val());
+
+        if (code == "") {
+            emptyFieldsOr("Completa el campo para así buscar información del vendedor.");
+        } else {
+            $.ajax({
+                url: "searchSeller.php",
+                method: "POST",
+                data: { code: code, option: "searchSeller" },
+                success: function(data) {
+                    data = $.parseJSON(data);
+
+                    if (data.seller != "No encontrado") {
+                        // console.log(data.seller);
+
+                        $("#nameSellerSearch").val(data.seller["name"]);
+                        $("#lastNameSellerSearch").val(data.seller["last_name"]);
+                        $("#roleSellerSearch").val(data.seller["role"]);
+                        $("#codeSellerSearch").val(data.seller["code"]);
+                        $("#photoSellerSearch").attr("src", data.seller["picture"]);
+
+                        if (data.cards != "") {
+                            $(".row.cards-search").html(data.cards);
+                        } else {
+                            $(".row.cards-search").html("Esta persona aún no ha agregado sus productos.");
+                        }
+
+                    } else {
+                        emptyFieldsOr("No encontramos información sobre este vendedor :(");
+                    }
+                    /*if (data.site) {
+                        $("#nameSiteSearch").val(data.site["name"]);
+                        $("#photoSiteSearch").attr("src", data.site["picture"]);
+
+                    }
+                    if (data.status == "Hubo un problema") {
+                        emptyFieldsOr("No encontramos información sobre este sitio :(");
+                    } */
+                },
+                error: function(e) {
+                    console.log(e);
+                }
+            });
+        }
+    });
+}
 // Mapa de los sitios turísticos 
 
 

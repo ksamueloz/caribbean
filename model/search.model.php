@@ -27,5 +27,30 @@
             }
             return false;
         }
+
+        public function searchSeller($code) {
+            $sql = "SELECT * FROM seller INNER JOIN user ON seller.user_iduser = user.iduser WHERE code LIKE :code";
+            $stament = $this -> connect() -> prepare($sql);
+            $stament -> bindParam(":code", $code);
+            $stament -> execute();
+            
+            $result = $stament -> rowCount();
+
+            if($result > 0) {
+                $sellerData = array();
+                while($result = $stament -> fetch(PDO::FETCH_ASSOC)) {  
+                    $sellerData["iduser"] = $result["iduser"];
+                    $sellerData["name"] = $result["name"];
+                    $sellerData["last_name"] = $result["last_name"];
+                    $sellerData["email"] = $result["email"];
+                    $sellerData["picture"] = $result["picture"];
+                    $sellerData["role"] = $result["role"];
+                    $sellerData["status"] = $result["status"];
+                    $sellerData["code"] = $result["code"];
+                }
+                return $sellerData;
+            }
+            return false;
+        }
     }
 ?>

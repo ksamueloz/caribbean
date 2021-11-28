@@ -344,6 +344,7 @@ img.photo-profile {
     justify-content: space-evenly;
     align-items: center;
     text-align: center;
+    margin-top: 15%;
 }
 
 .c1 {
@@ -361,6 +362,15 @@ img.photo-profile {
     display: flex;
     position: relative;
     margin-top: 8%;
+}
+
+.data-1 {
+    margin-top: 8%;
+}
+
+.data-inp {
+    margin-bottom: 2%;
+    width: 80%;
 }
 
 input#nameSiteSearch {

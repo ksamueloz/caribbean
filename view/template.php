@@ -204,8 +204,18 @@
                 <section>
                     <div>
                         <p class="d-flex justify-content-center align-items-center">
-                        <span class="me-3">¿Quieres buscar un sitio?</span>
+                            <span class="me-3">¿Quieres buscar un sitio?</span>
                             <a href="view/modules/search.php">
+                                <button type="button" class="btn btn-primary btn-rounded">
+                                    Hazlo aquí
+                                </button>
+                            </a>
+                        </p>
+                    </div>
+                    <div>
+                        <p class="d-flex justify-content-center align-items-center">
+                            <span class="me-3">¿Quieres buscar los productos ofrecidos por un vendedor?</span>
+                            <a href="view/modules/searchSeller.php">
                                 <button type="button" class="btn btn-primary btn-rounded">
                                     Hazlo aquí
                                 </button>
