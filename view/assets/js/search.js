@@ -2,6 +2,9 @@ $(document).ready(function() {
     searchSites();
     searchSeller();
     uploadScript();
+
+    // Botón de información sobre la búsqueda.
+    search();
 });
 
 function searchSites() {
@@ -96,8 +99,22 @@ function searchSeller() {
         }
     });
 }
-// Mapa de los sitios turísticos 
 
+// Información sobre cómo funciona el buscador de vendedores.
+
+function search() {
+    $(document).on("click", "#btnInfo", function() {
+        Swal.fire({
+            icon: 'info',
+            title: '¿Cómo funciona?',
+            text: `Ingresa un código de 4 digitos, por ejemplo asdf,
+                   para que podamos buscar al vendedor asociado a dicho código.`
+        })
+    });
+}
+
+
+// Mapa de los sitios turísticos 
 
 function uploadScript() {
     var script = document.createElement('script');
