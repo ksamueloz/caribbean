@@ -6,7 +6,7 @@
     require_once "../../controller/login.controller.php";
 
     if(isset($_SESSION["session"])) {
-        header("Location: /caribbean");
+        header("Location: /index.php");
     }
 ?>
 <!DOCTYPE html>
@@ -27,7 +27,7 @@
         <div class="container-fluid">
             <nav class="navbar navbar-expand-md navbar-light border-3 border-bottom bg-light fixed-top" id="nav-login">
                 <div class="md-6 title">
-                    <a class="navbar-brand" href="/caribbean" data-bs-toggle="tooltip" data-placement="top" title="Logo de página web de turismo en la costa caribe">
+                    <a class="navbar-brand" href="/index.php" data-bs-toggle="tooltip" data-placement="top" title="Logo de página web de turismo en la costa caribe">
                         <p>
                             Caribbean Tour
                         </p>

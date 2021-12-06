@@ -6,7 +6,7 @@
 
     
     if(!isset($_SESSION["session"])){
-        header("Location: /caribbean");
+        header("Location: /index.php");
     } 
     else if(isset($_SESSION["session"]) && $_SESSION["role"] == "Vendedor") {
 
@@ -28,7 +28,7 @@
       <div class="container-fluid">
             <nav class="navbar navbar-expand-md navbar-light border-3 border-bottom bg-light fixed-top" id="nav-login">
                 <div class="md-6 title">
-                    <a class="navbar-brand" href="/caribbean" data-bs-toggle="tooltip" data-placement="top" title="Logo de página web de turismo en la costa caribe">
+                    <a class="navbar-brand" href="/index.php" data-bs-toggle="tooltip" data-placement="top" title="Logo de página web de turismo en la costa caribe">
                         <p>
                             Caribbean Tour
                         </p>
@@ -258,4 +258,4 @@
 <!-- Seller JS -->
 <script src="../assets/js/seller.js" language="JavaScript" type="text/javascript"></script>
 </html>
-<?php } else { header("Location: /caribbean"); } ?>
+<?php } else { header("Location: /index.php"); } ?>

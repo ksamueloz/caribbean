@@ -42,12 +42,12 @@ require_once "../../controller/search.controller.php";
                                 if(!isset($_SESSION["session"])):
                             ?>
                                 <div class="md-3" class="links-li-su">
-                                    <a href="/caribbean/view/modules/login.php">
+                                    <a href="login.php">
                                         <button class="btn btn-none btn-custom">Inicia sesión</button>
                                     </a>
                                 </div>
                                 <div class="md-3" class="links-li-su">              
-                                    <a href="view/modules/signupAsSeller.php">
+                                    <a href="signupAsSeller.php">
                                         <button class="btn btn-none btn-custom">Regístrate</button>
                                     </a>
                                 </div>
@@ -100,7 +100,7 @@ require_once "../../controller/search.controller.php";
                     <label for="lastNameSellerSearch">Apellido de la persona</label>
                     <input type="text" class="form-control data-inp" name="lastNameSellerSearch" id="lastNameSellerSearch" placeholder="Aquí saldrá el apellido de la persona." disabled>
 
-                    <label for="roleSellerSearch">Role</label>
+                    <label for="roleSellerSearch">Rol</label>
                     <input type="text" class="form-control data-inp" name="roleSellerSearch" id="roleSellerSearch" placeholder="Aquí saldrá el role de la persona." disabled>
                     
                     <label for="codeSellerSearch">Código del vendedor</label>
@@ -157,7 +157,7 @@ require_once "../../controller/search.controller.php";
                     <div>
                         <p class="d-flex justify-content-center align-items-center">
                             <span class="me-3">¿Terminaste de ver todo?</span>
-                            <a href="/caribbean">
+                            <a href="/index.php">
                                 <button type="button" class="btn btn-primary btn-rounded">
                                     Vuelve al inicio
                                 </button>

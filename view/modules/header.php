@@ -1,3 +1,3 @@
 <header>
-    <a href="/caribbean">Caribbean Tour</a>
+    <a href="/index.php">Caribbean Tour</a>
 </header>

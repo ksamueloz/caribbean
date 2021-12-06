@@ -28,7 +28,7 @@ require_once "../../controller/search.controller.php";
         <div class="col col-lg-12">
             <nav class="navbar navbar-expand-md navbar-light border-3 border-bottom bg-light fixed-top" id="nav-login">
                 <div class="md-6 title">
-                    <a class="navbar-brand" href="/caribbean" data-bs-toggle="tooltip" data-placement="top" title="Página web de turismo en la costa caribe">
+                    <a class="navbar-brand" href="/index.php" data-bs-toggle="tooltip" data-placement="top" title="Página web de turismo en la costa caribe">
                         <p>
                             Caribbean Tour
                         </p>
@@ -43,12 +43,12 @@ require_once "../../controller/search.controller.php";
                             if(!isset($_SESSION["session"])):
                         ?>
                             <div class="md-3" class="links-li-su">
-                                <a href="view/modules/login.php">
+                                <a href="login.php">
                                     <button class="btn btn-none btn-custom">Inicia sesión</button>
                                 </a>
                             </div>
                             <div class="md-3" class="links-li-su">              
-                                <a href="view/modules/signupAsSeller.php">
+                                <a href="signupAsSeller.php">
                                     <button class="btn btn-none btn-custom">Regístrate</button>
                                 </a>
                             </div>
@@ -125,7 +125,7 @@ require_once "../../controller/search.controller.php";
                 <div>
                     <p class="d-flex justify-content-center align-items-center">
                     <span class="me-3">¿Estás satisfech@?</span>
-                        <a href="/caribbean">
+                        <a href="/index.php">
                             <button type="button" class="btn btn-primary btn-rounded">
                                 Regresa a la página principal
                             </button>
