@@ -138,6 +138,10 @@
                             <img src="#" alt="Foto de perfil" id="photoProfile" name="photoProfile" class="photo-profile" width=200 height=240>
                         </div>
                         <div class="mb-3">
+                            <label class="form-label float-left">Codigo</label>
+                            <input class="form-control" id="codexProfile" name="codexProfile" type="text" placeholder="Codigo" disabled>
+                        </div>
+                        <div class="mb-3">
                             <label class="form-label float-left">N. Identidad</label>
                             <input class="form-control" id="identityProfile" name="identityProfile" type="number" placeholder="Número de identidad">
                         </div>

@@ -123,6 +123,7 @@
                     $userData[] = $result["picture"];
                     $userData[] = $result["email"];
                     $userData[] = $result["city"];
+                    $userData[] = $result["code"];
                 }
                 return $userData;
             }

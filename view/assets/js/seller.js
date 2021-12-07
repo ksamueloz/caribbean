@@ -239,6 +239,7 @@ function viewProfile() {
             $("#photoProfile").attr("src", response.data_profile[3]);
             $("#emailProfile").val(response.data_profile[4]);
             $("#cityProfile").val(response.data_profile[5]);
+            $("#codexProfile").val(response.data_profile[6]);
         }
     });
 }
